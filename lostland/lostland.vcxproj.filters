@@ -18,22 +18,28 @@
     <ClCompile Include="src\lostland.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\glad.c">
+    <ClCompile Include="src\engine\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\shader.cpp">
+    <ClCompile Include="src\engine\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\vertex_shader.glsl" />
-    <None Include="src\shaders\fragment_shader.glsl" />
+    <None Include="src\engine\shaders\vertex_shader.glsl" />
+    <None Include="src\engine\shaders\fragment_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\shader.h">
+    <ClInclude Include="src\engine\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\lostland.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

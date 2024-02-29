@@ -19,17 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\shader.cpp" />
-    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\engine\engine.cpp" />
+    <ClCompile Include="src\engine\shader.cpp" />
+    <ClCompile Include="src\engine\glad.c" />
     <ClCompile Include="src\lostland.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\fragment_shader.glsl" />
-    <None Include="src\shaders\vertex_shader.glsl" />
+    <None Include="src\engine\shaders\fragment_shader.glsl" />
+    <None Include="src\engine\shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\engine.h" />
     <ClInclude Include="src\lostland.h" />
-    <ClInclude Include="src\shader.h" />
+    <ClInclude Include="src\engine\shader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
