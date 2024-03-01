@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\engine\camera.cpp" />
     <ClCompile Include="src\engine\engine.cpp" />
+    <ClCompile Include="src\engine\input.cpp" />
     <ClCompile Include="src\engine\shader.cpp" />
     <ClCompile Include="src\engine\texture.cpp" />
     <ClCompile Include="src\engine\transform.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="src\engine\engine.h" />
     <ClInclude Include="src\engine\texture.h" />
     <ClInclude Include="src\engine\transform.h" />
+    <ClInclude Include="src\engine\input.h" />
     <ClInclude Include="src\lostland.h" />
     <ClInclude Include="src\engine\shader.h" />
   </ItemGroup>
