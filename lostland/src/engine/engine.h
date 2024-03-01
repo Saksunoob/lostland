@@ -8,9 +8,7 @@
 #include "transform.h"
 
 class Engine {
-	unsigned int window_width;
-	unsigned int window_height;
-	const char* window_title;
+	GLFWwindow* window;
 
 	public:
 		Engine(unsigned int width, unsigned int height, const char* title);

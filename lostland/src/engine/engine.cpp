@@ -3,13 +3,6 @@
 #include "engine.h"
 
 Engine::Engine(unsigned int width, unsigned int height, const char* title) {
-    window_width = width;
-    window_height = height;
-    window_title = title;
-}
-
-bool Engine::run()
-{
     // initialize and configure
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -17,7 +10,11 @@ bool Engine::run()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // window creation
-    GLFWwindow* window = glfwCreateWindow(window_width, window_height, window_title, NULL, NULL);
+    window = glfwCreateWindow(width, height, title, NULL, NULL);
+}
+
+bool Engine::run()
+{
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
