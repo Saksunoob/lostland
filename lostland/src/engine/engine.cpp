@@ -1,3 +1,5 @@
+#include <glad.c>
+
 #include "engine.h"
 
 Engine::Engine(unsigned int width, unsigned int height, const char* title) {
@@ -35,11 +37,11 @@ bool Engine::run()
     Shader shaderProgram("src/engine/shaders/vertex_shader.glsl", "src/engine/shaders/fragment_shader.glsl");
 
     float vertices[] = {
-        // positions         // colors
-         0.5f,  0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // top right
-         0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 0.0f,   // bottom left
-        -0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f    // top left
+        // positions         // texCoords
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right
+         0.5f, -0.5f, 0.0f,  0.0f, 1.0f,   // bottom right
+        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
+        -0.5f,  0.5f, 0.0f,  1.0f, 0.0f    // top left
     };
     unsigned int indices[] = {
         0, 1, 3,   // first triangle
@@ -60,14 +62,28 @@ bool Engine::run()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+
+    // texture coord attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    Texture texture("src/engine/missing_texture.png");
 
+
+    shaderProgram.use();
+    shaderProgram.setInt("texture_image", 0);
+
+    Transform transform;
+    transform.position.x += 0.5;
+    //transform.rotation.z += 3.14159265358979323846/4.;
+    transform.scale.x += 0.5;
+
+    shaderProgram.setMatrix4f("transform", transform.matrix());
+
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     while (!glfwWindowShouldClose(window))
@@ -81,6 +97,7 @@ bool Engine::run()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        texture.use();
         shaderProgram.use();
 
         // Bind array

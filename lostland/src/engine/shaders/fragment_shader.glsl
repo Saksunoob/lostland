@@ -2,8 +2,12 @@
 
 out vec4 FragColor;
 
-in vec3 vColor;
+in vec2 UV;
+uniform sampler2D texture_image;
 
 void main() {
-   FragColor = vec4(vColor, 1.0);
+	vec4 texColor = texture(texture_image, UV);
+	if (texColor.a <= 0.5)
+		discard;
+	FragColor = texColor;
 }

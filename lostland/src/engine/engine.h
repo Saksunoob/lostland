@@ -1,12 +1,11 @@
 #pragma once
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-
 #include "shader.h"
+#include "texture.h"
+#include "transform.h"
 
 class Engine {
 	unsigned int window_width;
