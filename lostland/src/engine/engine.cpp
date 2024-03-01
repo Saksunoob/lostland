@@ -73,11 +73,18 @@ bool Engine::run()
     shaderProgram.setInt("texture_image", 0);
 
     Transform transform;
-    transform.position.x += 0.5;
+    transform.position.x += 0.;
+    transform.position.z = -0.2;
     //transform.rotation.z += 3.14159265358979323846/4.;
-    transform.scale.x += 0.5;
+    transform.scale.x = 500.;
+    transform.scale.y = 250.;
+
+    Camera camera;
+    camera.x += 100;
+    camera.zoom = 0.5;
 
     shaderProgram.setMatrix4f("transform", transform.matrix());
+    shaderProgram.setMatrix4f("projection", camera.matrix());
 
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);

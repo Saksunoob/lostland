@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\camera.cpp" />
     <ClCompile Include="src\engine\engine.cpp" />
     <ClCompile Include="src\engine\shader.cpp" />
     <ClCompile Include="src\engine\texture.cpp" />
@@ -30,6 +31,7 @@
     <None Include="src\engine\shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\camera.h" />
     <ClInclude Include="src\engine\engine.h" />
     <ClInclude Include="src\engine\texture.h" />
     <ClInclude Include="src\engine\transform.h" />
