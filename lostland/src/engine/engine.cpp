@@ -100,6 +100,13 @@ bool Engine::run()
             transform.position.y -= 0.1f;
         }
 
+        if (input.get_key_pressed(KEY_E)) {
+            transform.rotation += 0.001f;
+        }
+        if (input.get_key_pressed(KEY_Q)) {
+            transform.rotation -= 0.001f;
+        }
+
         // render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

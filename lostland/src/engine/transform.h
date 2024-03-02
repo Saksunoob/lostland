@@ -3,19 +3,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "camera.h"
 
-class Vec3 {
+class Vec2 {
 public:
-	float x, y, z;
-	Vec3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+	float x, y;
+	Vec2(float x, float y) : x(x), y(y) {}
 };
 
 class Transform {
 public:
-	Vec3 position, rotation, scale;
+	Vec2 position, scale;
+	float rotation;
+	int z_index;
 	Transform()
-		: position(0.0, 0.0, 0.0),
-		rotation(0.0, 0.0, 0.0),
-		scale(1.0, 1.0, 1.0) {}
+		: position(0.0, 0.0),
+		rotation(0.0),
+		scale(1.0, 1.0),
+		z_index(0) {}
 
 	glm::mat4 matrix();
 };
