@@ -8,6 +8,7 @@ class Texture {
 	unsigned int texture;
 
 	public:
+		int width, height;
 		Texture(const char* path);
 		void use();
 };

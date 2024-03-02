@@ -3,10 +3,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "shader.h"
-#include "texture.h"
-#include "transform.h"
+#include "../rendering/shader.h"
+#include "../rendering/texture.h"
+#include "../game_objects/transform.h"
 #include "input.h"
+#include "../game_objects/game_object.h"
 
 class Engine {
 	GLFWwindow* window;

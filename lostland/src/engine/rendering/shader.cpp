@@ -55,6 +55,18 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }
+
+Shader::Shader(const char* dirPath) {
+    std::string vertexPath(dirPath);
+    std::string fragmentPath(dirPath);
+
+    vertexPath.append("/vertex.glsl");
+    fragmentPath.append("/fragment.glsl");
+
+    Shader shader(vertexPath.c_str(), fragmentPath.c_str());
+    ID = shader.ID;
+}
+
 // activate the shader
 // ------------------------------------------------------------------------
 void Shader::use()
@@ -63,24 +75,73 @@ void Shader::use()
 }
 // utility uniform functions
 // ------------------------------------------------------------------------
-void Shader::setBool(const std::string& name, bool value) const
-{
+
+// Boolean functions
+
+void Shader::setBVec1(const std::string& name, glm::bvec1 value) const {
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value.x);
+}
+void Shader::setBVec2(const std::string& name, glm::bvec2 value) const {
+    glUniform2i(glGetUniformLocation(ID, name.c_str()), (int)value.x, (int)value.y);
+}
+void Shader::setBVec3(const std::string& name, glm::bvec3 value) const {
+    glUniform3i(glGetUniformLocation(ID, name.c_str()), (int)value.x, (int)value.y, (int)value.z);
+}
+void Shader::setBVec4(const std::string& name, glm::bvec4 value) const {
+    glUniform4i(glGetUniformLocation(ID, name.c_str()), (int)value.x, (int)value.y, (int)value.z, (int)value.w);
+}
+void Shader::setBool(const std::string& name, bool value) const {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
-// ------------------------------------------------------------------------
-void Shader::setInt(const std::string& name, int value) const
-{
-    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+
+// Float functions
+
+void Shader::setFVec1(const std::string& name, glm::fvec1 value) const {
+    glUniform1f(glGetUniformLocation(ID, name.c_str()), value.x);
 }
-// ------------------------------------------------------------------------
-void Shader::setFloat(const std::string& name, float value) const
-{
+void Shader::setFVec2(const std::string& name, glm::fvec2 value) const {
+    glUniform2f(glGetUniformLocation(ID, name.c_str()), value.x, value.y);
+}
+void Shader::setFVec3(const std::string& name, glm::fvec3 value) const {
+    glUniform3f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
+}
+void Shader::setFVec4(const std::string& name, glm::fvec4 value) const {
+    glUniform4f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z, value.w);
+}
+void Shader::setFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
+// Integer functions
+
+void Shader::setIVec1(const std::string& name, glm::ivec1 value) const {
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), value.x);
+}
+void Shader::setIVec2(const std::string& name, glm::ivec2 value) const {
+    glUniform2i(glGetUniformLocation(ID, name.c_str()), value.x, value.y);
+}
+void Shader::setIVec3(const std::string& name, glm::ivec3 value) const {
+    glUniform3i(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
+}
+void Shader::setIVec4(const std::string& name, glm::ivec4 value) const {
+    glUniform4i(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z, value.w);
+}
+void Shader::setInt(const std::string& name, int value) const {
+    glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+// Matricies
+
+void Shader::setMatrix2f(const std::string& name, glm::mat2 value) const {
+    glUniformMatrix2fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+}
+void Shader::setMatrix3f(const std::string& name, glm::mat3 value) const {
+    glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+}
 void Shader::setMatrix4f(const std::string& name, glm::mat4 value) const {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
+
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {

@@ -18,49 +18,55 @@
     <ClCompile Include="src\lostland.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\shader.cpp">
+    <ClCompile Include="src\engine\rendering\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\engine.cpp">
+    <ClCompile Include="src\engine\core\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\texture.cpp">
+    <ClCompile Include="src\engine\rendering\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\transform.cpp">
+    <ClCompile Include="src\engine\game_objects\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\camera.cpp">
+    <ClCompile Include="src\engine\game_objects\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\input.cpp">
+    <ClCompile Include="src\engine\core\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\game_objects\game_object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\engine\shaders\vertex_shader.glsl" />
-    <None Include="src\engine\shaders\fragment_shader.glsl" />
+    <None Include="src\engine\rendering\shaders\sprite\vertex.glsl" />
+    <None Include="src\engine\rendering\shaders\sprite\fragment.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\shader.h">
+    <ClInclude Include="src\engine\rendering\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\lostland.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\engine.h">
+    <ClInclude Include="src\engine\core\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\texture.h">
+    <ClInclude Include="src\engine\rendering\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\transform.h">
+    <ClInclude Include="src\engine\game_objects\transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\camera.h">
+    <ClInclude Include="src\engine\game_objects\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\input.h">
+    <ClInclude Include="src\engine\core\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\game_objects\game_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
