@@ -2,7 +2,7 @@
 
 #include "engine.h"
 
-Engine::Engine(unsigned int width, unsigned int height, const char* title) {
+bool Engine::initialize(unsigned int width, unsigned int height, const char* title) {
     // initialize and configure
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -11,16 +11,18 @@ Engine::Engine(unsigned int width, unsigned int height, const char* title) {
 
     // window creation
     window = glfwCreateWindow(width, height, title, NULL, NULL);
-}
 
-bool Engine::run()
-{
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return false;
     }
+}
+
+bool Engine::run()
+{
+    
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, Engine::framebuffer_size_callback);
 

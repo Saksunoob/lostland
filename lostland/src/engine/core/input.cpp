@@ -1,5 +1,7 @@
 #include "input.h";
 
+using namespace Engine::Input;
+
 Input::Input() {
     for (int i = 0; i < 119; ++i) {
         key_states[i] = { false, false };

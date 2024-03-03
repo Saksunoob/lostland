@@ -1,6 +1,6 @@
 #include "camera.h"
 
-glm::mat4 Camera::matrix() {
+glm::mat4 Engine::GameObjects::Camera::matrix() {
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 

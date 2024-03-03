@@ -1,5 +1,7 @@
 #include "game_object.h"
 
+using namespace Engine::GameObjects;
+
 const float Sprite::vertices[5 * 4] = {
     // positions         // texCoords
      0.5f,  0.5f, 0.0f,  1.0f, 1.0f,   // top right

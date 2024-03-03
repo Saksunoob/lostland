@@ -3,9 +3,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 
-class Camera {
-public:
-	float x, y, zoom;
-	Camera() : x(0), y(0), zoom(1) {};
-	glm::mat4 matrix();
-};
+namespace Engine {
+	namespace GameObjects {
+		class Camera {
+		public:
+			float x, y, zoom;
+			Camera() : x(0), y(0), zoom(1) {};
+			glm::mat4 matrix();
+		};
+	}
+}

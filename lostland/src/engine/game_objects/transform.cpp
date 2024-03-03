@@ -1,5 +1,7 @@
 #include "transform.h"
 
+using namespace Engine::GameObjects;
+
 glm::mat4 Transform::matrix() {
 	glm::mat4 trans = glm::mat4(1.0f);
 

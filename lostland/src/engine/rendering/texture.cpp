@@ -2,6 +2,8 @@
 
 #include "texture.h"
 
+using namespace Engine::Rendering;
+
 const char missing_texture_data[2 * 2 * 4] = {
     255, 0, 255, 255,
     0, 0, 0, 255,
