@@ -13,7 +13,7 @@ namespace Engine {
             Transform transform;
             Shader shader;
             GameObject(Transform transform, Shader shader) : transform(transform), shader(shader) {};
-            virtual void render(Camera camera) {};
+            virtual void render(Camera *camera) {};
         };
 
         class Sprite : public GameObject {
@@ -58,7 +58,7 @@ namespace Engine {
                     glBindVertexArray(0);
                 }
             }
-            void render(Camera camera) override;
+            void render(Camera *camera) override;
         };
     }
 }

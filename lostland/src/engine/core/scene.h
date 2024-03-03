@@ -1,0 +1,20 @@
+#pragma once
+
+#include <vector>
+#include "../game_objects/game_object.h"
+#include <algorithm>
+
+using namespace Engine::GameObjects;
+
+namespace Engine {
+	class Scene {
+	private:
+		std::vector<GameObject*> game_objects;
+		Camera* active_camera;
+	public:
+		void render();
+		void instatiate(GameObject* game_object);
+		void remove(GameObject* game_object);
+		void activate_camera(Camera* camera);
+	};
+}

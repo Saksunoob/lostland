@@ -2,7 +2,9 @@
 
 #include "engine.h"
 
-bool Engine::initialize(unsigned int width, unsigned int height, const char* title) {
+using namespace Engine;
+
+bool Engine::initialize(unsigned int width, unsigned int height, const char* title, void (*start)(), void (*update)(), void (*exit)()) {
     // initialize and configure
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -18,11 +20,7 @@ bool Engine::initialize(unsigned int width, unsigned int height, const char* tit
         glfwTerminate();
         return false;
     }
-}
 
-bool Engine::run()
-{
-    
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, Engine::framebuffer_size_callback);
 
@@ -33,60 +31,40 @@ bool Engine::run()
         return false;
     }
 
-    Texture texture("src/engine/rendering/missiexture.png");
-    Transform transform;
-    transform.position.x = 100.;
-    transform.scale = Vec2(50., 50.);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    Sprite sprite1(transform, texture);
+    Input::init();
 
-    texture = Texture("src/engine/tree.jpg");
-    transform.position.x = -100.;
-    transform.scale = Vec2(0.1, 0.1);
-    Sprite sprite2(transform, texture);
+    start();
 
-    Camera camera;
-    Input input;
-
-    while (!glfwWindowShouldClose(window))
-    {
-        input.processInput(window);
-
-        if (input.get_key_pressed(KEY_D)) {
-            sprite1.transform.position.x += 0.1f;
-        }
-        if (input.get_key_pressed(KEY_A)) {
-            sprite1.transform.position.x -= 0.1f;
-        }
-        if (input.get_key_pressed(KEY_W)) {
-            sprite1.transform.position.y += 0.1f;
-        }
-        if (input.get_key_pressed(KEY_S)) {
-            sprite1.transform.position.y -= 0.1f;
-        }
-
-        if (input.get_key_pressed(KEY_E)) {
-            sprite1.transform.rotation += 0.001f;
-        }
-        if (input.get_key_pressed(KEY_Q)) {
-            sprite1.transform.rotation -= 0.001f;
-        }
-
-        // render
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        sprite1.render(camera);
-        sprite2.render(camera);
-
-        // swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+    while (!glfwWindowShouldClose(window)) {
+        Input::processInput(window);
+        update();
+        Engine::render();
     }
 
-    // glff terminate, clearing all previously allocated GLFW resources.
+    exit();
     glfwTerminate();
     return true;
+}
+
+void Engine::quit() {
+    glfwSetWindowShouldClose(window, 1);
+}
+
+void Engine::render()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    active_scene->render();
+
+    // swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+void Engine::activate_scene(Scene* scene) {
+    active_scene = scene;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

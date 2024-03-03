@@ -19,7 +19,7 @@ unsigned int Sprite::VAO = NULL;
 unsigned int Sprite::EBO = NULL;
 Shader Sprite::SPRITE_SHADER = Shader((unsigned int)0);
 
-void Sprite::render(Camera camera) {
+void Sprite::render(Camera *camera) {
     shader.use();
 
     texture.use();
@@ -28,7 +28,7 @@ void Sprite::render(Camera camera) {
     modified_transform.scale.x *= texture.width;
     modified_transform.scale.y *= texture.height;
     shader.setMatrix4f("transform", modified_transform.matrix());
-    shader.setMatrix4f("projection", camera.matrix());
+    shader.setMatrix4f("projection", camera->matrix());
 
     // Bind array
     glBindVertexArray(VAO);

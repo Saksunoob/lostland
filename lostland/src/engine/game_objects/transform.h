@@ -7,14 +7,14 @@ namespace Engine {
 	namespace GameObjects {
 		class Vec2 {
 		public:
-			float x, y;
-			Vec2(float x, float y) : x(x), y(y) {}
+			double x, y;
+			Vec2(double x, double y) : x(x), y(y) {}
 		};
 
 		class Transform {
 		public:
 			Vec2 position, scale;
-			float rotation;
+			double rotation;
 			int z_index;
 			Transform()
 				: position(0.0, 0.0),

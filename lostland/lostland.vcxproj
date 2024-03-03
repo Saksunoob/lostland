@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\core\scene.cpp" />
     <ClCompile Include="src\engine\game_objects\camera.cpp" />
     <ClCompile Include="src\engine\core\engine.cpp" />
     <ClCompile Include="src\engine\game_objects\game_object.cpp" />
@@ -33,6 +34,7 @@
     <None Include="src\engine\rendering\shaders\sprite\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\core\scene.h" />
     <ClInclude Include="src\engine\game_objects\camera.h" />
     <ClInclude Include="src\engine\core\engine.h" />
     <ClInclude Include="src\engine\game_objects\game_object.h" />

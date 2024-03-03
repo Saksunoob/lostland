@@ -1,12 +1,13 @@
 #include "input.h";
 
-using namespace Engine::Input;
+using namespace Engine;
 
-Input::Input() {
+void Input::init() {
     for (int i = 0; i < 119; ++i) {
         key_states[i] = { false, false };
     }
 }
+
 
 void Input::processInput(GLFWwindow* window) {
     for (int key_i = 0; key_i < KEYS_AMOUNT; key_i++) {
@@ -39,7 +40,7 @@ bool Input::get_key_just_released(Key key) {
 }
 
 
-int Input::get_glfw_key(Key key) const {
+int Input::get_glfw_key(Key key) {
     switch (key) {
         case Key::KEY_SPACE: return GLFW_KEY_SPACE;
         case Key::KEY_APOSTROPHE: return GLFW_KEY_APOSTROPHE;
