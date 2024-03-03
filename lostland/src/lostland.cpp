@@ -14,7 +14,7 @@ Camera* camera;
 Scene* main_scene;
 
 void start() {
-    glClearColor(0.1, 0.1, 0.5, 1.0); // Black by default
+    glClearColor(0.1f, 0.1f, 0.5f, 1.0f); // Black by default
     main_scene = new Scene;
 
     Transform transform;
