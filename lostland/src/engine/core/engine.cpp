@@ -31,6 +31,10 @@ bool Engine::initialize(unsigned int width, unsigned int height, const char* tit
         return false;
     }
 
+    // Setting blending parameters
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     Input::init();

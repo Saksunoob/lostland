@@ -1,9 +1,9 @@
-#include "input.h";
+#include "input.h"
 
 using namespace Engine;
 
 void Input::init() {
-    for (int i = 0; i < 119; ++i) {
+    for (int i = 0; i < KEYS_AMOUNT; ++i) {
         key_states[i] = { false, false };
     }
 }

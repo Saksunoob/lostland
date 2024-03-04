@@ -20,14 +20,12 @@ void start() {
     Transform transform;
     transform.position.x = 100;
     transform.z_index = 1;
-    transform.scale = Vec2(10., 10.);
-    missing_texture = new Sprite(transform, Texture(""));
+    missing_texture = new Sprite(transform, Texture("src/window.png"));
     main_scene->instatiate(missing_texture);
 
     transform.position.x = -100;
     transform.z_index = 0;
-    transform.scale = Vec2(0.1, 0.1);
-    tree = new Sprite(transform, Texture("src/tree.jpg"));
+    tree = new Sprite(transform, Texture("src/window.png"));
     main_scene->instatiate(tree);
 
     camera = new Camera;
