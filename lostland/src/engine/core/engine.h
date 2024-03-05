@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "input.h"
+#include "time.h"
 #include "scene.h"
 
 namespace Engine {

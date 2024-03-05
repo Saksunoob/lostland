@@ -43,6 +43,7 @@ bool Engine::initialize(unsigned int width, unsigned int height, const char* tit
 
     while (!glfwWindowShouldClose(window)) {
         Input::processInput(window);
+        Time::update_time();
         update();
         Engine::render();
     }
