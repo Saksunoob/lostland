@@ -8,8 +8,8 @@
 #include "scene.h"
 
 namespace Engine {
-	static GLFWwindow* window;
-	static Scene* active_scene;
+	extern GLFWwindow* window;
+	extern Scene* active_scene;
 
 	bool initialize(unsigned int width, unsigned int height, const char* title, void (*start)(), void (*update)(), void (*exit)());
 	void quit();

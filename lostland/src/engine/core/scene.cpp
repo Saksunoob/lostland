@@ -2,12 +2,8 @@
 
 using namespace Engine;
 
-static bool comapre_z_index(GameObject* a, GameObject* b)
-{
-	return a->transform.z_index < b->transform.z_index;
-}
+
 void Scene::render() {
-	std::sort(game_objects.begin(), game_objects.end(), comapre_z_index);
 	for (int i = 0; i < game_objects.size(); i++) {
 		game_objects[i]->render(active_camera);
 	}

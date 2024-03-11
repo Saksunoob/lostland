@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\core\scene.cpp" />
+    <ClCompile Include="src\engine\core\time.cpp" />
     <ClCompile Include="src\engine\game_objects\camera.cpp" />
     <ClCompile Include="src\engine\core\engine.cpp" />
     <ClCompile Include="src\engine\game_objects\game_object.cpp" />
@@ -35,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\core\scene.h" />
+    <ClInclude Include="src\engine\core\time.h" />
     <ClInclude Include="src\engine\game_objects\camera.h" />
     <ClInclude Include="src\engine\core\engine.h" />
     <ClInclude Include="src\engine\game_objects\game_object.h" />

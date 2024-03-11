@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "../game_objects/game_object.h"
+#include "../game_objects/transform.h"
 #include <algorithm>
 
 using namespace Engine::GameObjects;

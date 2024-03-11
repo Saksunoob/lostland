@@ -1,6 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "game_object.h"
+
 #include "camera.h"
 
 namespace Engine {
@@ -10,8 +12,7 @@ namespace Engine {
 			double x, y;
 			Vec2(double x, double y) : x(x), y(y) {}
 		};
-
-		class Transform {
+		class Transform : public Component {
 		public:
 			Vec2 position, scale;
 			double rotation;

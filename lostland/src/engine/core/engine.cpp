@@ -4,6 +4,9 @@
 
 using namespace Engine;
 
+extern GLFWwindow* Engine::window = nullptr;
+extern Scene* Engine::active_scene = nullptr;
+
 bool Engine::initialize(unsigned int width, unsigned int height, const char* title, void (*start)(), void (*update)(), void (*exit)()) {
     // initialize and configure
     glfwInit();
