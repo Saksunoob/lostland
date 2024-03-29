@@ -1,6 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "texture.h"
+using namespace Engine::GameObjects;
 
 using namespace Engine::Rendering;
 

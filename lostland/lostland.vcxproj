@@ -19,12 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\engine\core\scene.cpp" />
     <ClCompile Include="src\engine\core\time.cpp" />
     <ClCompile Include="src\engine\game_objects\camera.cpp" />
     <ClCompile Include="src\engine\core\engine.cpp" />
-    <ClCompile Include="src\engine\game_objects\game_object.cpp" />
     <ClCompile Include="src\engine\core\input.cpp" />
+    <ClCompile Include="src\engine\game_objects\sprites.cpp" />
     <ClCompile Include="src\engine\rendering\shader.cpp" />
     <ClCompile Include="src\engine\rendering\texture.cpp" />
     <ClCompile Include="src\engine\game_objects\transform.cpp" />
@@ -35,11 +36,13 @@
     <None Include="src\engine\rendering\shaders\sprite\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\player.h" />
     <ClInclude Include="src\engine\core\scene.h" />
     <ClInclude Include="src\engine\core\time.h" />
     <ClInclude Include="src\engine\game_objects\camera.h" />
     <ClInclude Include="src\engine\core\engine.h" />
     <ClInclude Include="src\engine\game_objects\game_object.h" />
+    <ClInclude Include="src\engine\game_objects\sprites.h" />
     <ClInclude Include="src\engine\rendering\texture.h" />
     <ClInclude Include="src\engine\game_objects\transform.h" />
     <ClInclude Include="src\engine\core\input.h" />

@@ -1,4 +1,4 @@
-#include "game_object.h"
+#include "sprites.h"
 
 using namespace Engine::GameObjects;
 
@@ -65,7 +65,7 @@ SpriteRenderer::SpriteRenderer(Texture texture) : texture(texture) {
 
 #include "transform.h"
 
-void SpriteRenderer::render(Camera *camera) {
+void SpriteRenderer::render(Camera* camera) {
     shader.use();
 
     texture.use();

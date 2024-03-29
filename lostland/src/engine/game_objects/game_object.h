@@ -3,12 +3,9 @@
 #include <vector>
 #include <unordered_map>
 #include <typeinfo>
+#include <memory>
 
-#include "../rendering/texture.h"
-#include "../rendering/shader.h"
 #include "camera.h"
-
-using namespace Engine::Rendering;
 
 namespace Engine {
     namespace GameObjects {
@@ -26,43 +23,35 @@ namespace Engine {
         };
         class GameObject {
         public:
-            std::unordered_map<std::size_t, std::unique_ptr<Component>> components;
+            std::vector<std::unique_ptr<Component>> components;
             template <class T>
             void attach(T component) {
-                std::size_t id = typeid(T).hash_code();
-                components[id] = std::make_unique<T>(std::move(component));
-                components[id].get()->object = this;
-                components[id].get()->attach();
+                components.push_back(std::make_unique<T>(std::move(component)));
+                components[components.size()-1].get()->object = this;
+                components[components.size()-1].get()->attach();
             };
 
             void update() {
                 for (auto& it : components) {
-                    it.second.get()->update();
+                    it->update();
                 }
             }
 
             void render(Camera *camera) {
                 for (auto& it : components) {
-                    it.second.get()->render(camera);
+                    it->render(camera);
                 }
             }
 
             template <class T>
             T* get_component() {
-                return static_cast<T*>(components[typeid(T).hash_code()].get());
+                for (auto& it : components) {
+                    if (dynamic_cast<T*>(it.get())) {
+                        return static_cast<T*>(it.get());
+                    }
+                }
+                return NULL;
             };
-        };
-
-        class SpriteRenderer : public Component {
-            static Shader shader;
-            static unsigned int VAO;
-            static void initialize();
-        public:
-            Texture texture;
-            SpriteRenderer();
-            SpriteRenderer(Texture texture);
-
-            void render(Camera* camera);
         };
     }
 }

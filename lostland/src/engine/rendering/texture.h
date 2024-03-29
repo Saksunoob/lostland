@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 #include <iostream>
+#include <vector>
+#include "../game_objects/transform.h"
 
 namespace Engine {
 	namespace Rendering {
