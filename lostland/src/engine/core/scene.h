@@ -14,6 +14,7 @@ namespace Engine {
 		Camera* active_camera = nullptr;
 	public:
 		void render();
+		void update();
 		void instatiate(GameObject* game_object);
 		void remove(GameObject* game_object);
 		void activate_camera(Camera* camera);

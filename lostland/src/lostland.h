@@ -8,6 +8,8 @@
 #include "engine/core/scene.h"
 #include "engine/game_objects/sprites.h"
 
+#include "player.h"
+
 
 
 void start();

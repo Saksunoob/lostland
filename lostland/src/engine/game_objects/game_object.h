@@ -14,9 +14,7 @@ namespace Engine {
         class Component {
         public:
             GameObject* object;
-            Component() {
-                object = nullptr;
-            }
+            Component() : object(nullptr) {};
             virtual void attach() {};
             virtual void update() {};
             virtual void render(Camera* camera) {};
@@ -27,8 +25,8 @@ namespace Engine {
             template <class T>
             void attach(T component) {
                 components.push_back(std::make_unique<T>(std::move(component)));
-                components[components.size()-1].get()->object = this;
-                components[components.size()-1].get()->attach();
+                components.back()->object = this;
+                components.back()->attach();
             };
 
             void update() {

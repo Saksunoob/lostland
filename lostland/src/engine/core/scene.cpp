@@ -8,6 +8,11 @@ void Scene::render() {
 		game_objects[i]->render(active_camera);
 	}
 }
+void Scene::update() {
+	for (int i = 0; i < game_objects.size(); i++) {
+		game_objects[i]->update();
+	}
+}
 void Scene::instatiate(GameObject* game_object) {
 	game_objects.push_back(game_object);
 }

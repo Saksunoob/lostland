@@ -18,14 +18,20 @@ void start() {
     main_scene->activate_camera(camera);
 
     Transform transform;
-    transform.position.x = 11.;
     transform.scale = Vec2(50., 50.);
     Texture texture("src/.png");
     SpriteRenderer renderer(texture);
+    Player player;
+    
 
     object = GameObject();
     object.attach(transform);
     object.attach(renderer);
+    object.attach(player);
+
+    if (object.get_component<Transform>() == NULL) {
+        std::cout << "Somthing went wrong" << std::endl;
+    }
 
     main_scene->instatiate(&object);
 
