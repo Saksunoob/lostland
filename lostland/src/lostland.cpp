@@ -18,9 +18,9 @@ void start() {
     main_scene->activate_camera(camera);
 
     Transform transform;
-    transform.scale = Vec2(50., 50.);
-    Texture texture("src/.png");
-    SpriteRenderer renderer(texture);
+    transform.scale = Vec2(2., 2.);
+    Texture texture("src/sqaures.png");
+    TileMapRenderer renderer(texture, 4, 4, 64, 64);
     Player player;
     
 

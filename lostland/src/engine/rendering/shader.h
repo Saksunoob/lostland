@@ -45,6 +45,12 @@ namespace Engine {
             void setIVec4(const std::string& name, glm::ivec4 value) const;
             void setInt(const std::string& name, int value) const;
 
+            void setUVec2(const std::string& name, glm::uvec2 value) const;
+            void setUVec3(const std::string& name, glm::uvec3 value) const;
+            void setUVec4(const std::string& name, glm::uvec4 value) const;
+            void setUVec1(const std::string& name, glm::uvec1 value) const;
+            void setUInt(const std::string& name, unsigned int value) const;
+
             void setMatrix2f(const std::string& name, glm::mat2 value) const;
             void setMatrix3f(const std::string& name, glm::mat3 value) const;
             void setMatrix4f(const std::string& name, glm::mat4 value) const;

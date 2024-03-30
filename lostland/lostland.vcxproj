@@ -34,6 +34,8 @@
   <ItemGroup>
     <None Include="src\engine\rendering\shaders\sprite\fragment.glsl" />
     <None Include="src\engine\rendering\shaders\sprite\vertex.glsl" />
+    <None Include="src\engine\rendering\shaders\tile_map\fragment.glsl" />
+    <None Include="src\engine\rendering\shaders\tile_map\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\player.h" />

@@ -131,6 +131,24 @@ void Shader::setInt(const std::string& name, int value) const {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
+// Unsigned Integer functions
+
+void Shader::setUVec1(const std::string& name, glm::uvec1 value) const {
+    glUniform1ui(glGetUniformLocation(ID, name.c_str()), value.x);
+}
+void Shader::setUVec2(const std::string& name, glm::uvec2 value) const {
+    glUniform2ui(glGetUniformLocation(ID, name.c_str()), value.x, value.y);
+}
+void Shader::setUVec3(const std::string& name, glm::uvec3 value) const {
+    glUniform3ui(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
+}
+void Shader::setUVec4(const std::string& name, glm::uvec4 value) const {
+    glUniform4ui(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z, value.w);
+}
+void Shader::setUInt(const std::string& name, unsigned int value) const {
+    glUniform1ui(glGetUniformLocation(ID, name.c_str()), value);
+}
+
 // Matricies
 
 void Shader::setMatrix2f(const std::string& name, glm::mat2 value) const {

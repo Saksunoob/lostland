@@ -51,20 +51,6 @@ void SpriteRenderer::initialize() {
     glBindVertexArray(0);
 }
 
-SpriteRenderer::SpriteRenderer() : texture(Texture("")) {
-    if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
-        initialize();
-    }
-}
-
-SpriteRenderer::SpriteRenderer(Texture texture) : texture(texture) {
-    if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
-        initialize();
-    }
-}
-
-#include "transform.h"
-
 void SpriteRenderer::render(Camera* camera) {
     shader.use();
 
@@ -81,4 +67,56 @@ void SpriteRenderer::render(Camera* camera) {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // Unbind array
     glBindVertexArray(0);
+}
+
+Shader TileMapRenderer::shader = Shader((unsigned int)NULL);
+
+void TileMapRenderer::initialize() {
+    Shader shaderProgram("src/engine/rendering/shaders/tile_map");
+
+    shaderProgram.use();
+    shaderProgram.setInt("atlas", 0);
+    shaderProgram.setInt("tiles", 1);
+
+    TileMapRenderer::shader = shaderProgram;
+}
+
+void TileMapRenderer::render(Camera* camera) {
+    shader.use();
+
+    texture.use();
+    Transform modified_transform = *object->get_component<Transform>();
+
+    // Set tiles texture
+
+    unsigned int tiles_texture;
+
+    glActiveTexture(GL_TEXTURE1);
+    glGenTextures(1, &tiles_texture);
+    glBindTexture(GL_TEXTURE_2D, tiles_texture);
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, tiles.data());
+
+    glBindTexture(GL_TEXTURE_2D, tiles_texture);
+
+
+    modified_transform.scale.x *= cell_width * width;
+    modified_transform.scale.y *= cell_height * height;
+    shader.setMatrix4f("transform", modified_transform.matrix());
+    shader.setMatrix4f("projection", camera->matrix());
+
+    shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_width, texture.height/cell_height));
+
+    // Bind array
+    glBindVertexArray(__super::VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    // Unbind array
+    glBindVertexArray(0);
+    // Delete texture
+    glDeleteTextures(1, &tiles_texture);
 }
