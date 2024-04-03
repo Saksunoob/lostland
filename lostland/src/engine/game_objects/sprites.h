@@ -37,10 +37,10 @@ namespace Engine
         public:
             unsigned int width, height;
             unsigned int cell_width, cell_height;
-            std::vector<unsigned int> tiles;
+            unsigned int* tiles;
 
             TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height) : 
-                SpriteRenderer(atlas), width(width), height(height), cell_width(cell_width), cell_height(cell_height), tiles(std::vector<unsigned int>(width* height, 0))
+                SpriteRenderer(atlas), width(width), height(height), cell_width(cell_width), cell_height(cell_height), tiles(std::vector<unsigned int>(width* height, 0).data())
             {
                 __super::initialize();
                 if (TileMapRenderer::shader.ID == NULL) { // Initialize shader

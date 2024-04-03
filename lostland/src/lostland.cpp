@@ -16,18 +16,25 @@ void start() {
     main_scene = new Scene;
     camera = new Camera;
     main_scene->activate_camera(camera);
+    Engine::activate_scene(main_scene);
 
     Transform transform;
-    transform.scale = Vec2(2., 2.);
-    Texture texture("src/sqaures.png");
-    TileMapRenderer renderer(texture, 4, 4, 64, 64);
     Player player;
+
+    
     
 
     object = GameObject();
     object.attach(transform);
-    object.attach(renderer);
+    object.attach(Map(Texture("src/squares.png")));
     object.attach(player);
+
+    Map* map = object.get_component<Map>();
+    map->generateChunk(IVec2(0, 0));
+    map->generateChunk(IVec2(1, 0));
+    map->generateChunk(IVec2(-1, 0));
+    map->generateChunk(IVec2(0, 1));
+    map->generateChunk(IVec2(0, -1));
 
     if (object.get_component<Transform>() == NULL) {
         std::cout << "Somthing went wrong" << std::endl;
@@ -35,7 +42,7 @@ void start() {
 
     main_scene->instatiate(&object);
 
-    Engine::activate_scene(main_scene);
+    
 }
 
 void update() {

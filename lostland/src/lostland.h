@@ -9,6 +9,7 @@
 #include "engine/game_objects/sprites.h"
 
 #include "player.h"
+#include "map.h"
 
 
 

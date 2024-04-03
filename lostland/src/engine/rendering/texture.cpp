@@ -31,6 +31,7 @@ Texture::Texture(const char* path) {
     }
     else
     {
+        std::cout << "Couldn't find texture '" << path << "'" << std::endl;
         width = 2;
         height = 2;
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &missing_texture_data);
