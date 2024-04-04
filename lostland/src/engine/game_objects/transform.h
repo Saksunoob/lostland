@@ -9,41 +9,37 @@ namespace Engine {
 	namespace GameObjects {
 		struct IVec2 {
 			int x, y;
-			IVec2(int x, int y) : x(x), y(y) {}
-			IVec2(int num) : x(num), y(num) {}
+			IVec2(int x, int y);
+			IVec2(int num);
 
-			IVec2 operator*(int num) { return IVec2(x * num, y * num); }
-			IVec2 operator/(int num) { return IVec2(x / num, y / num); }
-			IVec2 operator%(int num) { return IVec2(x % num, y % num); }
-			IVec2 operator+(IVec2 other) { return IVec2(x + other.x, y + other.y); }
-			IVec2 operator-(IVec2 other) { return IVec2(x - other.x, y - other.y); }
-			bool operator==(const IVec2 &other) const { return x == other.x && y == other.y; }
-			bool operator!=(const IVec2 &other) const { return x != other.x && y != other.y; }
+			IVec2 operator*(int num);
+			IVec2 operator/(int num);
+			IVec2 operator%(int num);
+			IVec2 operator+(IVec2 other);
+			IVec2 operator-(IVec2 other);
+			bool operator==(const IVec2& other) const;
+			bool operator!=(const IVec2& other) const;
 		};
 
 		struct Vec2 {
 			double x, y;
-			Vec2(double x, double y) : x(x), y(y) {}
-			Vec2(double num) : x(num), y(num) {}
-			Vec2(IVec2 pos) : x(pos.x), y(pos.y) {}
+			Vec2(double x, double y);
+			Vec2(double num);
+			Vec2(IVec2 pos);
 
-			IVec2 to_IVec2() { return IVec2(x, y); };
+			IVec2 to_IVec2();
 
-			IVec2 operator*(double num) { return IVec2(x * num, y * num); }
-			IVec2 operator/(double num) { return IVec2(x / num, y / num); }
-			IVec2 operator+(IVec2 other) { return IVec2(x + other.x, y + other.y); }
-			IVec2 operator-(IVec2 other) { return IVec2(x - other.x, y - other.y); }
+			IVec2 operator*(double num);
+			IVec2 operator/(double num);
+			IVec2 operator+(IVec2 other);
+			IVec2 operator-(IVec2 other);
 		};
 		class Transform : public Component {
 		public:
 			Vec2 position, scale;
 			double rotation;
 			int z_index;
-			Transform()
-				: position(0.0, 0.0),
-				rotation(0.0),
-				scale(1.0, 1.0),
-				z_index(0) {}
+			Transform();
 
 			glm::mat4 matrix();
 		};

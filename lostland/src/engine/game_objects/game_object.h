@@ -27,20 +27,8 @@ namespace Engine {
                 components.push_back(std::make_unique<T>(std::move(component)));
                 components.back()->object = this;
                 components.back()->attach();
-                return components.back();
+                return static_cast<T*>(components.back().get());
             };
-
-            void update() {
-                for (auto& it : components) {
-                    it->update();
-                }
-            }
-
-            void render(Camera *camera) {
-                for (auto& it : components) {
-                    it->render(camera);
-                }
-            }
 
             template <class T>
             T* get_component() {
@@ -51,6 +39,9 @@ namespace Engine {
                 }
                 return NULL;
             };
+
+            void update();
+            void render(Camera* camera);
         };
     }
 }

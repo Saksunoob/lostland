@@ -16,17 +16,9 @@ namespace Engine
             static unsigned int VAO;
             static void initialize();
         public:
-            Texture texture;
-            SpriteRenderer() : texture(Texture("")) {
-                if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
-                    initialize();
-                }
-            };
-            SpriteRenderer(Texture texture) : texture(texture) {
-                if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
-                    initialize();
-                }
-            };
+            Rendering::Texture texture;
+            SpriteRenderer();
+            SpriteRenderer(Texture texture);
 
             void render(Camera* camera);
         };
@@ -39,14 +31,7 @@ namespace Engine
             unsigned int cell_width, cell_height;
             unsigned int* tiles;
 
-            TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height) : 
-                SpriteRenderer(atlas), width(width), height(height), cell_width(cell_width), cell_height(cell_height), tiles(std::vector<unsigned int>(width* height, 0).data())
-            {
-                __super::initialize();
-                if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
-                    initialize();
-                }
-            };
+            TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height);
 
             void render(Camera* camera);
         };

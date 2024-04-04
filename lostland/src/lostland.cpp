@@ -13,7 +13,6 @@ Scene* main_scene;
 GameObject object;
 
 // Next Features:
-// Move stuff from headers to cpps
 // Make parent and children for gameobjects (also make maps use this)
 // Colliders
 

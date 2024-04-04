@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\game_objects\game_object.cpp" />
     <ClCompile Include="src\map.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\engine\core\scene.cpp" />

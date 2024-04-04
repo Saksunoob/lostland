@@ -51,6 +51,17 @@ void SpriteRenderer::initialize() {
     glBindVertexArray(0);
 }
 
+SpriteRenderer::SpriteRenderer() : texture(Texture("")) {
+    if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
+        initialize();
+    }
+};
+SpriteRenderer::SpriteRenderer(Texture texture) : texture(texture) {
+    if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
+        initialize();
+    }
+};
+
 void SpriteRenderer::render(Camera* camera) {
     shader.use();
 
@@ -79,6 +90,15 @@ void TileMapRenderer::initialize() {
     shaderProgram.setInt("tiles", 1);
 
     TileMapRenderer::shader = shaderProgram;
+}
+
+TileMapRenderer::TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height) :
+    SpriteRenderer(atlas), width(width), height(height), cell_width(cell_width), cell_height(cell_height), tiles(std::vector<unsigned int>(width* height, 0).data()) 
+{
+    __super::initialize();
+    if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
+        initialize();
+    }
 }
 
 void TileMapRenderer::render(Camera* camera) {
