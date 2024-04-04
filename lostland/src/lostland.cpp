@@ -12,37 +12,29 @@ Camera* camera;
 Scene* main_scene;
 GameObject object;
 
+// Next Features:
+// Move stuff from headers to cpps
+// Make parent and children for gameobjects (also make maps use this)
+// Colliders
+
 void start() {
     main_scene = new Scene;
     camera = new Camera;
     main_scene->activate_camera(camera);
     Engine::activate_scene(main_scene);
 
-    Transform transform;
-    Player player;
-
-    
-    
-
     object = GameObject();
-    object.attach(transform);
-    object.attach(Map(Texture("src/squares.png")));
-    object.attach(player);
+    Transform* transform = object.attach(Transform());
+    Map* map = object.attach(Map(Texture("src/squares.png")));
+    Player* player = object.attach(Player());
 
-    Map* map = object.get_component<Map>();
     map->generateChunk(IVec2(0, 0));
     map->generateChunk(IVec2(1, 0));
     map->generateChunk(IVec2(-1, 0));
     map->generateChunk(IVec2(0, 1));
     map->generateChunk(IVec2(0, -1));
 
-    if (object.get_component<Transform>() == NULL) {
-        std::cout << "Somthing went wrong" << std::endl;
-    }
-
     main_scene->instatiate(&object);
-
-    
 }
 
 void update() {

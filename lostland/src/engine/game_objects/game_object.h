@@ -23,10 +23,11 @@ namespace Engine {
         public:
             std::vector<std::unique_ptr<Component>> components;
             template <class T>
-            void attach(T component) {
+            T* attach(T component) {
                 components.push_back(std::make_unique<T>(std::move(component)));
                 components.back()->object = this;
                 components.back()->attach();
+                return components.back();
             };
 
             void update() {
