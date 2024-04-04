@@ -17,7 +17,7 @@ namespace Engine {
             Component() : object(nullptr) {};
             virtual void attach() {};
             virtual void update() {};
-            virtual void render(Camera* camera) {};
+            virtual void render() {};
         };
         class GameObject {
         public:
@@ -41,7 +41,7 @@ namespace Engine {
             };
 
             void update();
-            void render(Camera* camera);
+            void render();
         };
     }
 }

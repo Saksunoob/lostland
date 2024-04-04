@@ -62,7 +62,7 @@ SpriteRenderer::SpriteRenderer(Texture texture) : texture(texture) {
     }
 };
 
-void SpriteRenderer::render(Camera* camera) {
+void SpriteRenderer::render() {
     shader.use();
 
     texture.use();
@@ -71,6 +71,8 @@ void SpriteRenderer::render(Camera* camera) {
     modified_transform.scale.x *= texture.width;
     modified_transform.scale.y *= texture.height;
     shader.setMatrix4f("transform", modified_transform.matrix());
+
+    Camera* camera = Engine::active_scene->active_camera;
     shader.setMatrix4f("projection", camera->matrix());
 
     // Bind array
@@ -101,7 +103,7 @@ TileMapRenderer::TileMapRenderer(Texture atlas, unsigned int width, unsigned int
     }
 }
 
-void TileMapRenderer::render(Camera* camera) {
+void TileMapRenderer::render() {
     shader.use();
 
     texture.use();
@@ -128,6 +130,8 @@ void TileMapRenderer::render(Camera* camera) {
     modified_transform.scale.x *= cell_width * width;
     modified_transform.scale.y *= cell_height * height;
     shader.setMatrix4f("transform", modified_transform.matrix());
+
+    Camera* camera = Engine::active_scene->active_camera;
     shader.setMatrix4f("projection", camera->matrix());
 
     shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_width, texture.height/cell_height));

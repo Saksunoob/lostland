@@ -8,8 +8,8 @@ void GameObject::update() {
     }
 }
 
-void GameObject::render(Camera* camera) {
+void GameObject::render() {
     for (auto& it : components) {
-        it->render(camera);
+        it->render();
     }
 }

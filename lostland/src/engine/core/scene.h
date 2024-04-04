@@ -11,8 +11,8 @@ namespace Engine {
 	class Scene {
 	private:
 		std::vector<GameObject*> game_objects;
-		Camera* active_camera = nullptr;
 	public:
+		Camera* active_camera = nullptr;
 		void render();
 		void update();
 		void instatiate(GameObject* game_object);

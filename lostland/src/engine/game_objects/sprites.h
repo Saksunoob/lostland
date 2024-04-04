@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../engine/core/engine.h"
 #include "game_object.h"
 #include "../rendering/texture.h"
 #include "../rendering/shader.h"
@@ -20,7 +21,7 @@ namespace Engine
             SpriteRenderer();
             SpriteRenderer(Texture texture);
 
-            void render(Camera* camera);
+            void render();
         };
 
         class TileMapRenderer : public SpriteRenderer {
@@ -33,7 +34,7 @@ namespace Engine
 
             TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height);
 
-            void render(Camera* camera);
+            void render();
         };
     }
 }
