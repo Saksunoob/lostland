@@ -31,6 +31,10 @@ Transform::Transform() :
 	z_index(0) 
 {}
 
+void Transform::update() {
+
+}
+
 glm::mat4 Transform::matrix() {
 	glm::mat4 trans = glm::mat4(1.0f);
 

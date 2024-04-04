@@ -3,7 +3,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "game_object.h"
-#include "camera.h"
 
 namespace Engine {
 	namespace GameObjects {
@@ -40,6 +39,8 @@ namespace Engine {
 			double rotation;
 			int z_index;
 			Transform();
+
+			void update();
 
 			glm::mat4 matrix();
 		};

@@ -1,16 +1,16 @@
 #include "map.h"
 
-Chunk::Chunk(Texture atlas) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object(GameObject()) {
+Chunk::Chunk(Map* map) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object() {
 	Transform transform;
-	TileMapRenderer renderer(atlas, CHUNK_SIZE, CHUNK_SIZE, 64, 64);
+	TileMapRenderer renderer(map->atlas, CHUNK_SIZE, CHUNK_SIZE, 64, 64);
 	transform.scale = Vec2(0.25, 0.25);	
 	for (int i = 0; i < CHUNK_SIZE * CHUNK_SIZE; i++) {
 		tiles[i] = static_cast<Tile>(i % 4);
 	}
 	renderer.tiles = reinterpret_cast<unsigned int*>(tiles.data());
-	object.attach(transform);
-	object.attach(renderer);
-	Engine::active_scene->instatiate(&object);
+	object = map->object->scene->instatiate(map->object);
+	object->attach(transform);
+	object->attach(renderer);
 };
 
 bool Chunk::posInBounds(IVec2 pos) {
@@ -20,7 +20,7 @@ bool Chunk::posInBounds(IVec2 pos) {
 void Chunk::setTile(IVec2 pos, Tile tile) {
 	if (posInBounds(pos)) {
 		tiles[pos.y * CHUNK_SIZE + pos.x] = tile;
-		object.get_component<TileMapRenderer>()->tiles = reinterpret_cast<unsigned int*>(tiles.data());
+		object->get_component<TileMapRenderer>()->tiles = reinterpret_cast<unsigned int*>(tiles.data());
 	}
 }
 
@@ -48,12 +48,10 @@ IVec2 Map::getChunk(IVec2 pos) {
 /// <param name="pos">Chunk coordinates of the chunk to be generated</param>
 Chunk* Map::generateChunk(IVec2 pos) {
 	if (chunks.find(pos) == chunks.end()) {
-		Chunk* chunk = new Chunk(atlas);
-		chunk->object.get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 16;
-		Engine::active_scene->instatiate(&chunk->object);
+		Chunk* chunk = new Chunk(this);
+		chunk->object->get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 16;
 		chunks[pos] = chunk;
 	}
-		
 	return chunks[pos];
 }
 void Map::setTile(IVec2 pos, Tile tile) {
@@ -71,9 +69,7 @@ Tile Map::getTile(IVec2 pos) {
 }
 
 Map::~Map() {
-	for (auto chunk_pair : chunks) {
-		Chunk *chunk = chunk_pair.second;
-		chunk->object.components.clear();
-		delete chunk;
+	for (auto chunk : chunks) {
+		delete chunk.second;
 	}
 }

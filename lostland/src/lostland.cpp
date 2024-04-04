@@ -10,11 +10,6 @@ int main(void)
 
 Camera* camera;
 Scene* main_scene;
-GameObject object;
-
-// Next Features:
-// Make parent and children for gameobjects (also make maps use this)
-// Colliders
 
 void start() {
     main_scene = new Scene;
@@ -22,18 +17,16 @@ void start() {
     main_scene->activate_camera(camera);
     Engine::activate_scene(main_scene);
 
-    object = GameObject();
-    Transform* transform = object.attach(Transform());
-    Map* map = object.attach(Map(Texture("src/squares.png")));
-    Player* player = object.attach(Player());
+    GameObject* object = main_scene->instatiate();
+    Transform* transform = object->attach(Transform());
+    Map* map = object->attach(Map(Texture("src/squares.png")));
+    Player* player = object->attach(Player());
 
     map->generateChunk(IVec2(0, 0));
     map->generateChunk(IVec2(1, 0));
     map->generateChunk(IVec2(-1, 0));
     map->generateChunk(IVec2(0, 1));
     map->generateChunk(IVec2(0, -1));
-
-    main_scene->instatiate(&object);
 }
 
 void update() {

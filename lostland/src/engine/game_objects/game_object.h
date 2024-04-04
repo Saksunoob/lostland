@@ -4,8 +4,13 @@
 #include <unordered_map>
 #include <typeinfo>
 #include <memory>
+#include <algorithm>
+#include <iostream>
 
+#include "../core/scene.h"
 #include "camera.h"
+
+using namespace Engine;
 
 namespace Engine {
     namespace GameObjects {
@@ -21,25 +26,33 @@ namespace Engine {
         };
         class GameObject {
         public:
-            std::vector<std::unique_ptr<Component>> components;
+            Scene* scene;
+            GameObject* parent;
+            std::vector<GameObject*> children;
+            std::vector<Component*> components;
+
             template <class T>
             T* attach(T component) {
-                components.push_back(std::make_unique<T>(std::move(component)));
+                T* n_component = new T(component);
+                components.push_back(n_component);
                 components.back()->object = this;
                 components.back()->attach();
-                return static_cast<T*>(components.back().get());
+                return static_cast<T*>(components.back());
             };
 
             template <class T>
             T* get_component() {
-                for (auto& it : components) {
-                    if (dynamic_cast<T*>(it.get())) {
-                        return static_cast<T*>(it.get());
+                for (Component* component : components) {
+                    if (dynamic_cast<T*>(component)) {
+                        return static_cast<T*>(component);
                     }
                 }
-                return NULL;
+                return nullptr;
             };
 
+            void add_child(GameObject* child);
+            void remove_child(GameObject* child);
+            ~GameObject();
             void update();
             void render();
         };

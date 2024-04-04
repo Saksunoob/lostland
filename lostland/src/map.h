@@ -14,12 +14,14 @@ enum Tile {
 	GRASS
 };
 
+class Map;
+
 struct Chunk {
 	std::vector<Tile> tiles;
 	static const unsigned int CHUNK_SIZE = 16;
-	GameObject object;
+	GameObject *object;
 
-	Chunk(Texture atlas);
+	Chunk(Map* map);
 	void setTile(IVec2 pos, Tile tile);
 	Tile getTile(IVec2 pos);
 private:
@@ -28,10 +30,10 @@ private:
 
 class Map : public Component {
 	std::unordered_map<IVec2, Chunk*> chunks;
-	Texture atlas;
 
 	IVec2 getChunk(IVec2 pos);
 public:
+	Texture atlas;
 	Map(Texture atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas) {};
 
 	Chunk* generateChunk(IVec2 pos);

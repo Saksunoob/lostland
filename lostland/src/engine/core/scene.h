@@ -1,22 +1,26 @@
 #pragma once
 
 #include <vector>
-#include "../game_objects/game_object.h"
-#include "../game_objects/transform.h"
+#include "../game_objects/camera.h"
 #include <algorithm>
 
 using namespace Engine::GameObjects;
 
 namespace Engine {
+	namespace GameObjects {
+		class GameObject;
+	}
+
 	class Scene {
 	private:
-		std::vector<GameObject*> game_objects;
+		GameObject* root;
 	public:
 		Camera* active_camera = nullptr;
+
+		Scene();
 		void render();
 		void update();
-		void instatiate(GameObject* game_object);
-		void remove(GameObject* game_object);
+		GameObject* instatiate(GameObject* parent = nullptr);
 		void activate_camera(Camera* camera);
 	};
 }

@@ -1,26 +1,24 @@
 #include "scene.h"
+#include "../game_objects/game_object.h"
 
 using namespace Engine;
 
+Scene::Scene() : root(new GameObject()) {};
 
 void Scene::render() {
-	for (int i = 0; i < game_objects.size(); i++) {
-		game_objects[i]->render(active_camera);
-	}
+	root->render();
 }
 void Scene::update() {
-	for (int i = 0; i < game_objects.size(); i++) {
-		game_objects[i]->update();
-	}
+	root->update();
 }
-void Scene::instatiate(GameObject* game_object) {
-	game_objects.push_back(game_object);
-}
-void Scene::remove(GameObject *game_object) {
-	auto iterator = std::find(game_objects.begin(), game_objects.end(), game_object);
-	if (iterator != game_objects.end()) {
-		game_objects.erase(iterator);
-	}
+GameObject* Scene::instatiate(GameObject* parent) {
+	parent = parent == nullptr ? root : parent;
+
+	GameObject* object = new GameObject();
+	object->parent = parent;
+	object->scene = this;
+	parent->add_child(object);
+	return object;
 }
 void Scene::activate_camera(Camera* camera) {
 	active_camera = camera;
