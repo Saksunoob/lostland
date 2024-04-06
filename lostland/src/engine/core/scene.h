@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../game_objects/camera.h"
+#include "camera.h"
 
 using namespace Engine::GameObjects;
 

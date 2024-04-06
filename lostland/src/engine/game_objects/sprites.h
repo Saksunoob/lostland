@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../engine/core/engine.h"
-#include "game_object.h"
+#include "../core.h"
 #include "../rendering/texture.h"
 #include "../rendering/shader.h"
 #include "transform.h"

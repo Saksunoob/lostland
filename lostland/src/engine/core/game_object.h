@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../core/scene.h"
+#include "scene.h"
 
 using namespace Engine;
 
