@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <random>
 #include <iomanip>
 
 #include "engine/core/engine.h"

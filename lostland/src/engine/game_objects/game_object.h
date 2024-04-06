@@ -1,14 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <unordered_map>
-#include <typeinfo>
-#include <memory>
-#include <algorithm>
-#include <iostream>
-
 #include "../core/scene.h"
-#include "camera.h"
 
 using namespace Engine;
 

@@ -1,7 +1,6 @@
 #pragma once
 #include <glad/glad.h>
 #include <chrono>
-#include <iostream>
 
 using namespace std::chrono;
 

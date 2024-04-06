@@ -1,8 +1,6 @@
 #pragma once
 
-#include <vector>
 #include "../game_objects/camera.h"
-#include <algorithm>
 
 using namespace Engine::GameObjects;
 
