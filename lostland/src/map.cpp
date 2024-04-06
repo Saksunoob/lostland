@@ -2,7 +2,7 @@
 
 Chunk::Chunk(Map* map) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object() {
 	Transform transform;
-	TileMapRenderer renderer(map->atlas, CHUNK_SIZE, CHUNK_SIZE, 64, 64);
+	TileMapRenderer renderer(map->atlas, IVec2(CHUNK_SIZE), IVec2(64));
 	transform.scale = Vec2(0.25, 0.25);	
 	for (int i = 0; i < CHUNK_SIZE * CHUNK_SIZE; i++) {
 		tiles[i] = static_cast<Tile>(i % 4);

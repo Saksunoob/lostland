@@ -27,11 +27,11 @@ namespace Engine
             static Shader shader;
             static void initialize();
         public:
-            unsigned int width, height;
-            unsigned int cell_width, cell_height;
+            IVec2 grid_size;
+            IVec2 cell_size;
             unsigned int* tiles;
 
-            TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height);
+            TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size);
 
             void render();
         };

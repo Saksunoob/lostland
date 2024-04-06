@@ -4,7 +4,7 @@ using namespace Engine;
 
 int main(void)
 {
-    Engine::initialize(800, 600, "LostLand", start, update, exit);
+    Engine::initialize(IVec2(800, 600), "LostLand", start, update, exit);
     return 0;
 }
 

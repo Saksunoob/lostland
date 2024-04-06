@@ -3,12 +3,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 
+#include "vectors.h"
+
 namespace Engine {
 	namespace GameObjects {
 		class Camera {
 		public:
-			float x, y, zoom;
-			Camera() : x(0), y(0), zoom(1) {};
+			Vec2 pos;
+			float zoom;
+			Camera() : pos(Vec2(0)), zoom(1) {};
 			glm::mat4 matrix();
 		};
 	}

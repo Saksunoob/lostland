@@ -94,8 +94,8 @@ void TileMapRenderer::initialize() {
     TileMapRenderer::shader = shaderProgram;
 }
 
-TileMapRenderer::TileMapRenderer(Texture atlas, unsigned int width, unsigned int height, unsigned int cell_width, unsigned int cell_height) :
-    SpriteRenderer(atlas), width(width), height(height), cell_width(cell_width), cell_height(cell_height), tiles(std::vector<unsigned int>(width* height, 0).data()) 
+TileMapRenderer::TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size) :
+    SpriteRenderer(atlas), grid_size(grid_size), cell_size(cell_size), tiles(std::vector<unsigned int>(grid_size.x*grid_size.y, 0).data())
 {
     __super::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
@@ -122,19 +122,19 @@ void TileMapRenderer::render() {
     // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, tiles);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, grid_size.x, grid_size.y, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, tiles);
 
     glBindTexture(GL_TEXTURE_2D, tiles_texture);
 
 
-    modified_transform.scale.x *= cell_width * width;
-    modified_transform.scale.y *= cell_height * height;
+    modified_transform.scale.x *= grid_size.x * cell_size.x;
+    modified_transform.scale.y *= grid_size.y * cell_size.y;
     shader.setMatrix4f("transform", modified_transform.matrix());
 
     Camera* camera = Engine::active_scene->active_camera;
     shader.setMatrix4f("projection", camera->matrix());
 
-    shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_width, texture.height/cell_height));
+    shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_size.x, texture.height/cell_size.y));
 
     // Bind array
     glBindVertexArray(__super::VAO);
