@@ -5,6 +5,7 @@
 namespace Engine {
 	struct IVec2 {
 		int x, y;
+		IVec2();
 		IVec2(int x, int y);
 		IVec2(int num);
 
@@ -19,16 +20,17 @@ namespace Engine {
 
 	struct Vec2 {
 		double x, y;
+		Vec2();
 		Vec2(double x, double y);
 		Vec2(double num);
 		Vec2(IVec2 pos);
 
 		IVec2 to_IVec2();
 
-		IVec2 operator*(double num);
-		IVec2 operator/(double num);
-		IVec2 operator+(IVec2 other);
-		IVec2 operator-(IVec2 other);
+		Vec2 operator*(double num);
+		Vec2 operator/(double num);
+		Vec2 operator+(Vec2 other);
+		Vec2 operator-(Vec2 other);
 	};
 }
 

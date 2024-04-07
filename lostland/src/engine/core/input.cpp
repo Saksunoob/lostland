@@ -22,6 +22,24 @@ void Input::processInput(GLFWwindow* window) {
         key_state->pressed = new_state;
         key_state->just_changed = true;
     }
+
+    for (int m_button = 0; m_button < 8; m_button++) {
+        bool new_state = glfwGetMouseButton(window, m_button);
+        KeyState* button_state = &mouse_button_states[m_button];
+        if (button_state->pressed == new_state) {
+            button_state->just_changed = false;
+            continue;
+        }
+
+        button_state->pressed = new_state;
+        button_state->just_changed = true;
+    }
+
+    IVec2 old_pos = mouse_pos;
+    Vec2 new_pos;
+    glfwGetCursorPos(window, &new_pos.x, &new_pos.y);
+    mouse_pos = new_pos.to_IVec2();
+    mouse_delta = mouse_pos - old_pos;
 }
 
 bool Input::get_key_pressed(Key key) {
@@ -37,6 +55,28 @@ bool Input::get_key_just_pressed(Key key) {
 bool Input::get_key_just_released(Key key) {
     KeyState key_state = key_states[key];
     return !key_state.pressed && key_state.just_changed;
+}
+
+bool Input::get_mouse_button_pressed(MouseButton button) {
+    return mouse_button_states[button].pressed;
+}
+bool Input::get_mouse_button_just_pressed(MouseButton button) {
+    KeyState button_state = mouse_button_states[button];
+    return button_state.pressed && button_state.just_changed;
+}
+bool Input::get_mouse_button_released(MouseButton button) {
+    return !mouse_button_states[button].pressed;
+}
+bool Input::get_mouse_button_just_released(MouseButton button) {
+    KeyState button_state = mouse_button_states[button];
+    return !button_state.pressed && button_state.just_changed;
+}
+
+IVec2 Input::get_mouse_pos() {
+    return mouse_pos;
+}
+IVec2 Input::get_mouse_delta() {
+    return mouse_delta;
 }
 
 

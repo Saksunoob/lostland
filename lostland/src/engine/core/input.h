@@ -1,5 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include "vectors.h"
 
 namespace Engine {
     namespace Input {
@@ -127,12 +128,28 @@ namespace Engine {
             KEYS_AMOUNT,
         };
 
+        enum MouseButton {
+            MOUSE_1,
+            MOUSE_2,
+            MOUSE_3,
+            MOUSE_4,
+            MOUSE_5,
+            MOUSE_6,
+            MOUSE_7,
+            MOUSE_8,
+            MOUSE_LEFT = 0,
+            MOUSE_RIGHT = 1,
+            MOUSE_MIDDLE = 2,
+        };
+
         class KeyState {
         public:
             bool pressed, just_changed;
         };
 
         static KeyState key_states[KEYS_AMOUNT];
+        static KeyState mouse_button_states[8];
+        static IVec2 mouse_pos, mouse_delta;
 
         void init();
         void processInput(GLFWwindow* window);
@@ -141,6 +158,14 @@ namespace Engine {
         bool get_key_just_pressed(Key key);
         bool get_key_released(Key key);
         bool get_key_just_released(Key key);
+
+        bool get_mouse_button_pressed(MouseButton button);
+        bool get_mouse_button_just_pressed(MouseButton button);
+        bool get_mouse_button_released(MouseButton button);
+        bool get_mouse_button_just_released(MouseButton button);
+
+        IVec2 get_mouse_pos();
+        IVec2 get_mouse_delta();
 
         static int get_glfw_key(Key key);
     }
