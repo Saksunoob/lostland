@@ -79,16 +79,6 @@ IVec2 Input::get_mouse_delta() {
     return mouse_delta;
 }
 
-Vec2 Input::screen_to_worldspace(IVec2 screen_pos, Camera* camera) {
-    IVec2 window_size;
-    glfwGetWindowSize(Engine::window, &window_size.x, &window_size.y);
-    window_size /= 2;
-    screen_pos -= window_size;
-    Vec2 screen_UV = Vec2((double)screen_pos.x / (double)window_size.x, (double)screen_pos.y / (double)window_size.y);
-    glm::vec4 vec = glm::inverse(camera->matrix()) * glm::vec4(screen_UV.x, -screen_UV.y, 1.0, 1.0);
-    return Vec2(vec.x, vec.y);
-}
-
 
 int Input::get_glfw_key(Key key) {
     switch (key) {

@@ -1,5 +1,4 @@
 #pragma once
-#include "camera.h"
 #include "engine.h"
 #include <GLFW/glfw3.h>
 #include "vectors.h"
@@ -168,8 +167,6 @@ namespace Engine {
 
         IVec2 get_mouse_pos();
         IVec2 get_mouse_delta();
-
-        Vec2 screen_to_worldspace(IVec2 screen_pos, Camera *camera);
 
         static int get_glfw_key(Key key);
     }

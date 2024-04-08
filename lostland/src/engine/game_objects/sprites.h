@@ -4,6 +4,7 @@
 #include "../rendering/texture.h"
 #include "../rendering/shader.h"
 #include "transform.h"
+#include "camera.h"
 
 using namespace Engine::Rendering;
 

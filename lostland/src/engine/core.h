@@ -4,6 +4,5 @@
 #include "core/game_object.h"
 #include "core/scene.h"
 #include "core/vectors.h"
-#include "core/camera.h"
 #include "core/time.h"
 #include "core/input.h"

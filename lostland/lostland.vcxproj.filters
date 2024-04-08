@@ -30,7 +30,7 @@
     <ClCompile Include="src\engine\game_objects\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\core\camera.cpp">
+    <ClCompile Include="src\engine\game_objects\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\core\input.cpp">
@@ -80,7 +80,7 @@
     <ClInclude Include="src\engine\game_objects\transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\core\camera.h">
+    <ClInclude Include="src\engine\game_objects\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\core\input.h">

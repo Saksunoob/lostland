@@ -1,13 +1,12 @@
 #pragma once
 
-#include "camera.h"
-
-using namespace Engine;
-
 namespace Engine {
 	namespace GameObjects {
 		class GameObject;
+		class Camera;
 	}
+
+	using namespace GameObjects;
 
 	class Scene {
 	private:
