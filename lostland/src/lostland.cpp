@@ -31,6 +31,8 @@ void start() {
 
 void update() {
     std::cout << std::fixed << std::setprecision(2) << "\rFPS: " << 1. / Time::delta_time;
+    Vec2 mouse_pos = Input::screen_to_worldspace(Input::get_mouse_pos(), main_scene->active_camera);
+    std::cout << " mouse: (" << mouse_pos.x << ", " << mouse_pos.y << ")\t";
 }
 
 void exit() {

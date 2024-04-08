@@ -14,6 +14,11 @@ namespace Engine {
 		IVec2 operator%(int num);
 		IVec2 operator+(IVec2 other);
 		IVec2 operator-(IVec2 other);
+		IVec2& operator*=(int num);
+		IVec2& operator/=(int num);
+		IVec2& operator%=(int num);
+		IVec2& operator+=(IVec2 other);
+		IVec2& operator-=(IVec2 other);
 		bool operator==(const IVec2& other) const;
 		bool operator!=(const IVec2& other) const;
 	};

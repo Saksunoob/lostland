@@ -11,6 +11,31 @@ IVec2 IVec2::operator/(int num) { return IVec2(x / num, y / num); }
 IVec2 IVec2::operator%(int num) { return IVec2(x % num, y % num); }
 IVec2 IVec2::operator+(IVec2 other) { return IVec2(x + other.x, y + other.y); }
 IVec2 IVec2::operator-(IVec2 other) { return IVec2(x - other.x, y - other.y); }
+IVec2& IVec2::operator*=(int num) { 
+	this->x *= num; 
+	this->y *= num;
+	return *this;
+}
+IVec2& IVec2::operator/=(int num) {
+	this->x /= num;
+	this->y /= num;
+	return *this;
+}
+IVec2& IVec2::operator%=(int num) {
+	this->x %= num;
+	this->y %= num;
+	return *this;
+}
+IVec2& IVec2::operator+=(IVec2 other) {
+	this->x += other.x;
+	this->y += other.y;
+	return *this;
+}
+IVec2& IVec2::operator-=(IVec2 other) {
+	this->x -= other.x;
+	this->y -= other.y;
+	return *this;
+}
 bool IVec2::operator==(const IVec2& other) const { return x == other.x && y == other.y; }
 bool IVec2::operator!=(const IVec2& other) const { return x != other.x && y != other.y; }
 

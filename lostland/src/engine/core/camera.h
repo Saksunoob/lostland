@@ -6,13 +6,11 @@
 #include "vectors.h"
 
 namespace Engine {
-	namespace GameObjects {
-		class Camera {
-		public:
-			Vec2 pos;
-			float zoom;
-			Camera() : pos(Vec2(0)), zoom(1) {};
-			glm::mat4 matrix();
-		};
-	}
+	class Camera {
+	public:
+		Vec2 pos;
+		float rot, zoom;
+		Camera() : pos(Vec2(0)), rot(0), zoom(1) {};
+		glm::mat4 matrix();
+	};
 }

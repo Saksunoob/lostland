@@ -2,7 +2,7 @@
 
 #include "camera.h"
 
-using namespace Engine::GameObjects;
+using namespace Engine;
 
 namespace Engine {
 	namespace GameObjects {
@@ -11,14 +11,14 @@ namespace Engine {
 
 	class Scene {
 	private:
-		GameObject* root;
+		GameObjects::GameObject* root;
 	public:
 		Camera* active_camera = nullptr;
 
 		Scene();
 		void render();
 		void update();
-		GameObject* instatiate(GameObject* parent = nullptr);
+		GameObjects::GameObject* instatiate(GameObjects::GameObject* parent = nullptr);
 		void activate_camera(Camera* camera);
 	};
 }

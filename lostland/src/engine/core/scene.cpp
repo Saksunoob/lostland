@@ -2,6 +2,7 @@
 #include "game_object.h"
 
 using namespace Engine;
+using namespace Engine::GameObjects;
 
 Scene::Scene() : root(new GameObject()) {};
 
