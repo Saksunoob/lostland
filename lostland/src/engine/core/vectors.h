@@ -31,6 +31,7 @@ namespace Engine {
 		Vec2(IVec2 pos);
 
 		IVec2 to_IVec2();
+		double dot(Vec2 other) const;
 
 		Vec2 operator*(double num);
 		Vec2 operator/(double num);

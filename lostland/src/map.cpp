@@ -1,12 +1,33 @@
 #include "map.h"
 
-Chunk::Chunk(Map* map) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object() {
+Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object() {
 	Transform transform;
 	TileMapRenderer renderer(map->atlas, IVec2(CHUNK_SIZE), IVec2(64));
-	transform.scale = Vec2(0.25, 0.25);	
+	transform.scale = Vec2(1.0, 1.0);	
+
 	for (int i = 0; i < CHUNK_SIZE * CHUNK_SIZE; i++) {
-		tiles[i] = static_cast<Tile>(i % 4);
+		int c_x = i % CHUNK_SIZE;
+		int c_y = i / CHUNK_SIZE;
+
+		double x = (double)(c_x + (int)CHUNK_SIZE * pos.x) / 128;
+		double y = (double)(c_y + (int)CHUNK_SIZE * pos.y) / 128.;
+
+		double height = PerlinNoise::perlin(Vec2(x, y));
+
+		if (height <= 0.) {
+			tiles[i] = Tile::NONE;
+		}
+		else if (height <= 0.25) {
+			tiles[i] = Tile::STONE;
+		}
+		else if (height <= 0.5) {
+			tiles[i] = Tile::DIRT;
+		}
+		else {
+			tiles[i] = Tile::GRASS;
+		}
 	}
+
 	renderer.tiles = reinterpret_cast<unsigned int*>(tiles.data());
 	object = map->object->scene->instatiate(map->object);
 	object->attach(transform);
@@ -48,8 +69,8 @@ IVec2 Map::getChunk(IVec2 pos) {
 /// <param name="pos">Chunk coordinates of the chunk to be generated</param>
 Chunk* Map::generateChunk(IVec2 pos) {
 	if (chunks.find(pos) == chunks.end()) {
-		Chunk* chunk = new Chunk(this);
-		chunk->object->get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 16;
+		Chunk* chunk = new Chunk(this, pos);
+		chunk->object->get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 65;
 		chunks[pos] = chunk;
 	}
 	return chunks[pos];
@@ -72,4 +93,65 @@ Map::~Map() {
 	for (auto chunk : chunks) {
 		delete chunk.second;
 	}
+}
+
+/// <summary>
+/// Generates a pseudorandom hash
+/// </summary>
+/// <param name="pos"></param>
+/// <param name="seed"></param>
+/// <returns></returns>
+Vec2 PerlinNoise::randomGradient(IVec2 pos) {
+	// No precomputed gradients mean this works for any number of grid coordinates
+	const unsigned w = 8 * sizeof(unsigned);
+	const unsigned s = w / 2;
+	unsigned a = pos.x, b = pos.y;
+	a *= 3284157443;
+
+	b ^= a << s | a >> w - s;
+	b *= 1911520717;
+
+	a ^= b << s | b >> w - s;
+	a *= 2048419325;
+	double random = a * (3.14159265 / ~(~0u >> 1)); // in [0, 2*Pi]
+
+	// Create the vector from the angle
+	Vec2 v;
+	v.x = sin(random);
+	v.y = cos(random);
+
+	return v;
+}
+
+double PerlinNoise::interpolate(double a, double b, double weight) {
+	return (b - a) * (3.0 - weight * 2.0) * weight * weight + a;
+}
+
+
+double PerlinNoise::perlin(Vec2 pos) {
+	// Determine grid cell corner coordinates
+	int x0 = std::floor(pos.x);
+	int y0 = std::floor(pos.y);
+	int x1 = x0 + 1;
+	int y1 = y0 + 1;
+
+	// Compute Interpolation weights
+	double sx = pos.x - (double)x0;
+	double sy = pos.y - (double)y0;
+
+	// Compute and interpolate top two corners
+	double n0 = randomGradient(IVec2(x0, y0)).dot(pos - Vec2(x0, y0));
+	double n1 = randomGradient(IVec2(x1, y0)).dot(pos - Vec2(x1, y0));
+	double ix0 = interpolate(n0, n1, sx);
+
+	// Compute and interpolate bottom two corners
+	n0 = randomGradient(IVec2(x0, y1)).dot(pos - Vec2(x0, y1));
+	n1 = randomGradient(IVec2(x1, y1)).dot(pos - Vec2(x1, y1));
+	double ix1 = interpolate(n0, n1, sx);
+
+	// Final step: interpolate between the two previously interpolated values, now in y
+	double value = interpolate(ix0, ix1, sy);
+	
+
+	return value;
 }

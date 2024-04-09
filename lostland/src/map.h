@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <cmath>
 
 #include "engine/core.h"
 #include "engine/game_objects/sprites.h"
@@ -22,20 +23,30 @@ struct Chunk {
 	static const unsigned int CHUNK_SIZE = 16;
 	GameObject *object;
 
-	Chunk(Map* map);
+	Chunk(Map* map, IVec2 pos);
 	void setTile(IVec2 pos, Tile tile);
 	Tile getTile(IVec2 pos);
 private:
 	static bool posInBounds(IVec2 pos);
 };
 
+class PerlinNoise {
+	static double interpolate(double a, double b, double weight);
+	static Vec2 randomGradient(IVec2);
+public:
+	static double perlin(Vec2 pos);
+};
+
 class Map : public Component {
 	std::unordered_map<IVec2, Chunk*> chunks;
-
+	
 	IVec2 getChunk(IVec2 pos);
 public:
 	Texture atlas;
-	Map(Texture atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas) {};
+	unsigned int seed;
+
+
+	Map(unsigned int seed, Texture atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas), seed(seed) {};
 
 	Chunk* generateChunk(IVec2 pos);
 	void setTile(IVec2 pos, Tile tile);

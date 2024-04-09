@@ -45,6 +45,9 @@ Vec2::Vec2(double num) : x(num), y(num) {}
 Vec2::Vec2(IVec2 pos) : x(pos.x), y(pos.y) {}
 
 IVec2 Vec2::to_IVec2() { return IVec2(x, y); };
+double Vec2::dot(Vec2 other) const {
+	return this->x * other.x + this->y * other.y;
+}
 
 Vec2 Vec2::operator*(double num) { return Vec2(x * num, y * num); }
 Vec2 Vec2::operator/(double num) { return Vec2(x / num, y / num); }
