@@ -1,6 +1,6 @@
 #include "map.h"
 
-Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, NONE)), object() {
+Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, static_cast<Tile>(0))), object() {
 	Transform transform;
 	TileMapRenderer renderer(map->atlas, IVec2(CHUNK_SIZE), IVec2(64));
 	transform.scale = Vec2(1.0, 1.0);	
@@ -14,13 +14,13 @@ Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SI
 
 		double height = PerlinNoise::perlin(Vec2(x, y));
 
-		if (height <= 0.) {
-			tiles[i] = Tile::NONE;
-		}
-		else if (height <= 0.25) {
+		if (height <= -0.25) {
 			tiles[i] = Tile::STONE;
 		}
-		else if (height <= 0.5) {
+		else if (height <= 0) {
+			tiles[i] = Tile::SAND;
+		}
+		else if (height <= 0.25) {
 			tiles[i] = Tile::DIRT;
 		}
 		else {
@@ -49,7 +49,7 @@ Tile Chunk::getTile(IVec2 pos) {
 	if (posInBounds(pos)) {
 		return tiles[pos.y * CHUNK_SIZE + pos.x];
 	}
-	return NONE;
+	return static_cast<Tile>(0);
 }
 
 /// <summary>
@@ -84,7 +84,7 @@ Tile Map::getTile(IVec2 pos) {
 	IVec2 chunk_pos = getChunk(pos);
 
 	if (chunks.find(chunk_pos) == chunks.end())
-		return NONE;
+		return static_cast<Tile>(0);
 
 	return chunks[chunk_pos]->getTile((pos + Chunk::CHUNK_SIZE) % Chunk::CHUNK_SIZE);
 }

@@ -16,5 +16,13 @@ void Player::update() {
 	if (Input::get_key_pressed(Input::KEY_S)) {
 		transform->position.y -= SPEED * Time::delta_time;
 	}
+	if (Input::get_key_pressed(Input::KEY_E)) {
+		transform->scale.x *= (1 + Time::delta_time);
+		transform->scale.y *= (1 + Time::delta_time);
+	}
+	if (Input::get_key_pressed(Input::KEY_Q)) {
+		transform->scale.x /= (1 + Time::delta_time);
+		transform->scale.y /= (1 + Time::delta_time);
+	}
 
 }

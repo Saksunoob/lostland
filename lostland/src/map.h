@@ -10,8 +10,8 @@
 using namespace Engine::GameObjects;
 
 enum Tile {
-	NONE,
 	STONE,
+	SAND,
 	DIRT,
 	GRASS
 };

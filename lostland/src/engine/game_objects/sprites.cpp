@@ -133,6 +133,7 @@ void TileMapRenderer::render() {
     shader.setMatrix4f("projection", Engine::active_scene->active_camera->matrix());
 
     shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_size.x, texture.height/cell_size.y));
+    shader.setUVec2("grid_size", glm::uvec2(grid_size.x, grid_size.y));
 
     // Bind array
     glBindVertexArray(__super::VAO);
