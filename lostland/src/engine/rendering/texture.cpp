@@ -39,7 +39,10 @@ Texture::Texture(const char* path) {
     stbi_image_free(data);
 }
 
-void Texture::use() {
-    glActiveTexture(GL_TEXTURE0);
+void Texture::use(unsigned texture_slot) {
+    if (texture_slot > 31) {
+        return;
+    }
+    glActiveTexture(GL_TEXTURE0 + texture_slot);
     glBindTexture(GL_TEXTURE_2D, texture);
 }

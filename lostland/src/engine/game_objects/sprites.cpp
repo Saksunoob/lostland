@@ -65,7 +65,7 @@ SpriteRenderer::SpriteRenderer(Texture texture) : texture(texture) {
 void SpriteRenderer::render() {
     shader.use();
 
-    texture.use();
+    texture.use(0);
     Transform modified_transform = *object->get_component<Transform>();
 
     modified_transform.scale.x *= texture.width;
@@ -105,7 +105,7 @@ TileMapRenderer::TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size
 void TileMapRenderer::render() {
     shader.use();
 
-    texture.use();
+    texture.use(0);
     Transform modified_transform = *object->get_component<Transform>();
 
     // Set tiles texture

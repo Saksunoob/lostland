@@ -12,7 +12,7 @@ namespace Engine {
 		public:
 			int width, height;
 			Texture(const char* path);
-			void use();
+			void use(unsigned texture_slot);
 		};
 	}
 }
