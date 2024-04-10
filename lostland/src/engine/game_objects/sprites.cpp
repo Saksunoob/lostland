@@ -94,27 +94,21 @@ void TileMapRenderer::initialize() {
 }
 
 TileMapRenderer::TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size) :
-    SpriteRenderer(atlas), grid_size(grid_size), cell_size(cell_size), tiles(new unsigned int[grid_size.x*grid_size.y])
+    SpriteRenderer(atlas), grid_size(grid_size), cell_size(cell_size), tiles(new unsigned int[grid_size.x*grid_size.y]), tiles_changed(true), tiles_texture(Texture(""))
 {
     __super::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
         initialize();
+        update_tiles_texture();
     }
 }
 
-void TileMapRenderer::render() {
-    shader.use();
-
-    texture.use(0);
-    Transform modified_transform = *object->get_component<Transform>();
-
-    // Set tiles texture
-
-    unsigned int tiles_texture;
+void TileMapRenderer::update_tiles_texture() {
+    glDeleteTextures(1, &tiles_texture.texture);
 
     glActiveTexture(GL_TEXTURE1);
-    glGenTextures(1, &tiles_texture);
-    glBindTexture(GL_TEXTURE_2D, tiles_texture);
+    glGenTextures(1, &tiles_texture.texture);
+    glBindTexture(GL_TEXTURE_2D, tiles_texture.texture);
     // set the texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -122,8 +116,36 @@ void TileMapRenderer::render() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, grid_size.x, grid_size.y, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, tiles);
+    tiles_changed = false;
+}
 
-    glBindTexture(GL_TEXTURE_2D, tiles_texture);
+void TileMapRenderer::setTiles(unsigned* new_tiles) {
+    delete[] tiles;
+    tiles = new_tiles;
+    tiles_changed = true;
+}
+
+void TileMapRenderer::setTile(unsigned index, unsigned value) {
+    tiles[index] = value;
+    tiles_changed = true;
+}
+
+
+void TileMapRenderer::render() {
+
+    auto StartTime = std::chrono::system_clock::now();
+
+    shader.use();
+
+    texture.use(0);
+    Transform modified_transform = *object->get_component<Transform>();
+
+    // Set tiles texture
+
+    if (tiles_changed) {
+        update_tiles_texture();
+    }
+    tiles_texture.use(1);
 
 
     modified_transform.scale.x *= grid_size.x * cell_size.x;
@@ -140,6 +162,4 @@ void TileMapRenderer::render() {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // Unbind array
     glBindVertexArray(0);
-    // Delete texture
-    glDeleteTextures(1, &tiles_texture);
 }

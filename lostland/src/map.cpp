@@ -27,8 +27,7 @@ Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SI
 			tiles[i] = Tile::GRASS;
 		}
 	}
-
-	renderer.tiles = reinterpret_cast<unsigned int*>(tiles.data());
+	renderer.setTiles(reinterpret_cast<unsigned int*>(tiles.data()));
 	object = map->object->scene->instatiate(map->object);
 	object->attach(transform);
 	object->attach(renderer);
@@ -41,7 +40,7 @@ bool Chunk::posInBounds(IVec2 pos) {
 void Chunk::setTile(IVec2 pos, Tile tile) {
 	if (posInBounds(pos)) {
 		tiles[pos.y * CHUNK_SIZE + pos.x] = tile;
-		object->get_component<TileMapRenderer>()->tiles = reinterpret_cast<unsigned int*>(tiles.data());
+		object->get_component<TileMapRenderer>()->setTiles(reinterpret_cast<unsigned int*>(tiles.data()));
 	}
 }
 

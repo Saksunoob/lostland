@@ -7,9 +7,8 @@
 namespace Engine {
 	namespace Rendering {
 		class Texture {
-			unsigned int texture;
-
 		public:
+			unsigned int texture;
 			int width, height;
 			Texture(const char* path);
 			void use(unsigned texture_slot);

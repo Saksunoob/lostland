@@ -27,10 +27,17 @@ namespace Engine
         class TileMapRenderer : public SpriteRenderer {
             static Shader shader;
             static void initialize();
+            unsigned int* tiles;
+            bool tiles_changed;
+            Texture tiles_texture;
+
+            void update_tiles_texture();
         public:
             IVec2 grid_size;
             IVec2 cell_size;
-            unsigned int* tiles;
+
+            void setTiles(unsigned int* new_tiles);
+            void setTile(unsigned int index, unsigned int value);
 
             TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size);
 
