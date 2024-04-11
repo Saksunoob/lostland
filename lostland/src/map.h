@@ -42,11 +42,11 @@ class Map : public Component {
 	
 	IVec2 getChunk(IVec2 pos);
 public:
-	Texture atlas;
+	TextureAtlas atlas;
 	unsigned int seed;
 
 
-	Map(unsigned int seed, Texture atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas), seed(seed) {};
+	Map(unsigned int seed, TextureAtlas atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas), seed(seed) {};
 
 	Chunk* generateChunk(IVec2 pos);
 	void setTile(IVec2 pos, Tile tile);

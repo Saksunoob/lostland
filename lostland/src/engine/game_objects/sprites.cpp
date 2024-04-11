@@ -68,8 +68,8 @@ void SpriteRenderer::render() {
     texture.use(0);
     Transform modified_transform = *object->get_component<Transform>();
 
-    modified_transform.scale.x *= texture.width;
-    modified_transform.scale.y *= texture.height;
+    modified_transform.scale.x *= texture.size.x;
+    modified_transform.scale.y *= texture.size.y;
     shader.setMatrix4f("transform", modified_transform.matrix());
 
     shader.setMatrix4f("projection", Engine::active_scene->active_camera->matrix());
@@ -93,8 +93,8 @@ void TileMapRenderer::initialize() {
     TileMapRenderer::shader = shaderProgram;
 }
 
-TileMapRenderer::TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size) :
-    SpriteRenderer(atlas), grid_size(grid_size), cell_size(cell_size), tiles(new unsigned int[grid_size.x*grid_size.y]), tiles_changed(true), tiles_texture(Texture(""))
+TileMapRenderer::TileMapRenderer(TextureAtlas atlas, IVec2 grid_size) :
+    SpriteRenderer(atlas), grid_size(grid_size), tiles(new unsigned int[grid_size.x*grid_size.y]), tiles_changed(true), tiles_texture(Texture("")), texture(atlas)
 {
     __super::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
@@ -148,13 +148,13 @@ void TileMapRenderer::render() {
     tiles_texture.use(1);
 
 
-    modified_transform.scale.x *= grid_size.x * cell_size.x;
-    modified_transform.scale.y *= grid_size.y * cell_size.y;
+    modified_transform.scale.x *= grid_size.x * texture.cell_size.x;
+    modified_transform.scale.y *= grid_size.y * texture.cell_size.y;
     shader.setMatrix4f("transform", modified_transform.matrix());
 
     shader.setMatrix4f("projection", Engine::active_scene->active_camera->matrix());
 
-    shader.setUVec2("atlas_size", glm::uvec2(texture.width/cell_size.x, texture.height/cell_size.y));
+    shader.setUVec2("atlas_size", glm::uvec2(texture.size.x/texture.cell_size.x, texture.size.y/texture.cell_size.y));
     shader.setUVec2("grid_size", glm::uvec2(grid_size.x, grid_size.y));
 
     // Bind array

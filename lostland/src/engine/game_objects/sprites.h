@@ -34,12 +34,12 @@ namespace Engine
             void update_tiles_texture();
         public:
             IVec2 grid_size;
-            IVec2 cell_size;
+            TextureAtlas texture;
 
             void setTiles(unsigned int* new_tiles);
             void setTile(unsigned int index, unsigned int value);
 
-            TileMapRenderer(Texture atlas, IVec2 grid_size, IVec2 cell_size);
+            TileMapRenderer(TextureAtlas atlas, IVec2 grid_size);
 
             void render();
         };

@@ -22,18 +22,16 @@ Texture::Texture(const char* path) {
     // load image, create texture and generate mipmaps
     int nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 4);
+    unsigned char* data = stbi_load(path, &size.x, &size.y, &nrChannels, 4);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
     {
-        std::cout << "Couldn't find texture '" << path << "'" << std::endl;
-        width = 2;
-        height = 2;
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &missing_texture_data);
+        size = IVec2(2, 2);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, &missing_texture_data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     stbi_image_free(data);
@@ -46,3 +44,5 @@ void Texture::use(unsigned texture_slot) {
     glActiveTexture(GL_TEXTURE0 + texture_slot);
     glBindTexture(GL_TEXTURE_2D, texture);
 }
+
+TextureAtlas::TextureAtlas(IVec2 cell_size, Texture texture) : Texture(texture), cell_size(cell_size) {}
