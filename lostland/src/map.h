@@ -32,9 +32,9 @@ private:
 
 class PerlinNoise {
 	static double interpolate(double a, double b, double weight);
-	static Vec2 randomGradient(IVec2);
+	static Vec2 randomGradient(IVec2, unsigned);
 public:
-	static double perlin(Vec2 pos);
+	static double perlin(Vec2 pos, unsigned seed);
 };
 
 class Map : public Component {

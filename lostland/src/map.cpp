@@ -12,7 +12,7 @@ Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SI
 		double x = (double)(c_x + (int)CHUNK_SIZE * pos.x) / 128;
 		double y = (double)(c_y + (int)CHUNK_SIZE * pos.y) / 128.;
 
-		double height = PerlinNoise::perlin(Vec2(x, y));
+		double height = PerlinNoise::perlin(Vec2(x, y), map->seed);
 
 		if (height <= -0.25) {
 			tiles[i] = Tile::STONE;
@@ -69,7 +69,7 @@ IVec2 Map::getChunk(IVec2 pos) {
 Chunk* Map::generateChunk(IVec2 pos) {
 	if (chunks.find(pos) == chunks.end()) {
 		Chunk* chunk = new Chunk(this, pos);
-		chunk->object->get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 65;
+		chunk->object->get_component<Transform>()->position = pos * Chunk::CHUNK_SIZE * 64;
 		chunks[pos] = chunk;
 	}
 	return chunks[pos];
@@ -100,11 +100,11 @@ Map::~Map() {
 /// <param name="pos"></param>
 /// <param name="seed"></param>
 /// <returns></returns>
-Vec2 PerlinNoise::randomGradient(IVec2 pos) {
+Vec2 PerlinNoise::randomGradient(IVec2 pos, unsigned seed) {
 	// No precomputed gradients mean this works for any number of grid coordinates
 	const unsigned w = 8 * sizeof(unsigned);
 	const unsigned s = w / 2;
-	unsigned a = pos.x, b = pos.y;
+	unsigned a = pos.x ^ seed, b = pos.y ^ seed;
 	a *= 3284157443;
 
 	b ^= a << s | a >> w - s;
@@ -127,7 +127,7 @@ double PerlinNoise::interpolate(double a, double b, double weight) {
 }
 
 
-double PerlinNoise::perlin(Vec2 pos) {
+double PerlinNoise::perlin(Vec2 pos, unsigned seed) {
 	// Determine grid cell corner coordinates
 	int x0 = std::floor(pos.x);
 	int y0 = std::floor(pos.y);
@@ -139,13 +139,13 @@ double PerlinNoise::perlin(Vec2 pos) {
 	double sy = pos.y - (double)y0;
 
 	// Compute and interpolate top two corners
-	double n0 = randomGradient(IVec2(x0, y0)).dot(pos - Vec2(x0, y0));
-	double n1 = randomGradient(IVec2(x1, y0)).dot(pos - Vec2(x1, y0));
+	double n0 = randomGradient(IVec2(x0, y0), seed).dot(pos - Vec2(x0, y0));
+	double n1 = randomGradient(IVec2(x1, y0), seed).dot(pos - Vec2(x1, y0));
 	double ix0 = interpolate(n0, n1, sx);
 
 	// Compute and interpolate bottom two corners
-	n0 = randomGradient(IVec2(x0, y1)).dot(pos - Vec2(x0, y1));
-	n1 = randomGradient(IVec2(x1, y1)).dot(pos - Vec2(x1, y1));
+	n0 = randomGradient(IVec2(x0, y1), seed).dot(pos - Vec2(x0, y1));
+	n1 = randomGradient(IVec2(x1, y1), seed).dot(pos - Vec2(x1, y1));
 	double ix1 = interpolate(n0, n1, sx);
 
 	// Final step: interpolate between the two previously interpolated values, now in y

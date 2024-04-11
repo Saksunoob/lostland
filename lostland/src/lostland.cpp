@@ -25,7 +25,7 @@ void start() {
 
     GameObject* object = main_scene->instatiate();
     transform = object->attach(Transform());
-    Map* map = object->attach(Map(0, Texture("src/ground_tiles.png")));
+    Map* map = object->attach(Map(2, Texture("src/ground_tiles.png")));
 
     int range = 10;
 
