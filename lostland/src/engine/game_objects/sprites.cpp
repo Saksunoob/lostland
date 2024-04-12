@@ -51,7 +51,7 @@ void SpriteRenderer::initialize() {
     glBindVertexArray(0);
 }
 
-SpriteRenderer::SpriteRenderer() : texture(Texture("")) {
+SpriteRenderer::SpriteRenderer() : texture(Texture()) {
     if (SpriteRenderer::shader.ID == NULL) { // Initialize shader
         initialize();
     }
@@ -89,12 +89,35 @@ void TileMapRenderer::initialize() {
     shaderProgram.use();
     shaderProgram.setInt("atlas", 0);
     shaderProgram.setInt("tiles", 1);
+    shaderProgram.setInt("blend_mask", 2);
 
     TileMapRenderer::shader = shaderProgram;
 }
 
 TileMapRenderer::TileMapRenderer(TextureAtlas atlas, IVec2 grid_size) :
-    SpriteRenderer(atlas), grid_size(grid_size), tiles(new unsigned int[grid_size.x*grid_size.y]), tiles_changed(true), tiles_texture(Texture("")), texture(atlas)
+    SpriteRenderer(atlas), 
+    grid_size(grid_size), 
+    tiles(new unsigned int[grid_size.x*grid_size.y]), 
+    tiles_changed(true), 
+    tiles_texture(Texture()), 
+    texture(atlas),
+    blend_mask(Texture(0, 0, 0, 255))
+{
+    __super::initialize();
+    if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
+        initialize();
+        update_tiles_texture();
+    }
+}
+
+TileMapRenderer::TileMapRenderer(TextureAtlas atlas, IVec2 grid_size, Texture blend_mask) :
+    SpriteRenderer(atlas), 
+    grid_size(grid_size), 
+    tiles(new unsigned int[grid_size.x * grid_size.y]), 
+    tiles_changed(true), 
+    tiles_texture(Texture()), 
+    texture(atlas),
+    blend_mask(blend_mask)
 {
     __super::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
@@ -120,7 +143,6 @@ void TileMapRenderer::update_tiles_texture() {
 }
 
 void TileMapRenderer::setTiles(unsigned* new_tiles) {
-    delete[] tiles;
     tiles = new_tiles;
     tiles_changed = true;
 }
@@ -146,6 +168,7 @@ void TileMapRenderer::render() {
         update_tiles_texture();
     }
     tiles_texture.use(1);
+    blend_mask.use(2);
 
 
     modified_transform.scale.x *= grid_size.x * texture.cell_size.x;

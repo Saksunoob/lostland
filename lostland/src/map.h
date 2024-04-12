@@ -20,7 +20,7 @@ class Map;
 
 struct Chunk {
 	std::vector<Tile> tiles;
-	static const unsigned int CHUNK_SIZE = 16;
+	static const unsigned int CHUNK_SIZE = 64;
 	GameObject *object;
 
 	Chunk(Map* map, IVec2 pos);
@@ -43,10 +43,11 @@ class Map : public Component {
 	IVec2 getChunk(IVec2 pos);
 public:
 	TextureAtlas atlas;
+	Texture blend_mask;
 	unsigned int seed;
 
 
-	Map(unsigned int seed, TextureAtlas atlas) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas), seed(seed) {};
+	Map(unsigned int seed, TextureAtlas atlas, Texture blend_mask) : chunks(std::unordered_map<IVec2, Chunk*>()), atlas(atlas), seed(seed), blend_mask(blend_mask) {};
 
 	Chunk* generateChunk(IVec2 pos);
 	void setTile(IVec2 pos, Tile tile);

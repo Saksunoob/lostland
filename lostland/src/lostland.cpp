@@ -10,6 +10,7 @@ int main(void)
 
 Scene* main_scene;
 Camera* camera;
+Map* map;
 
 void start() {
     main_scene = new Scene;
@@ -25,9 +26,11 @@ void start() {
 
     GameObject* object = main_scene->instatiate();
     transform = object->attach(Transform());
-    Map* map = object->attach(Map(2, TextureAtlas(IVec2(64), Texture("src/ground_tiles.png"))));
+    TextureAtlas atlas(IVec2(64), Texture("src/ground_tiles.png"));
+    Texture blend_mask("src/blend_mask.png");
+    map = object->attach(Map(2, atlas, blend_mask));
 
-    int range = 10;
+    int range = 4;
 
     for (int y = -range; y < range+1; y++) {
         for (int x = -range; x < range+1; x++) {
@@ -38,6 +41,7 @@ void start() {
 
 void update() {
     std::cout << std::fixed << std::setprecision(2) << "\rFPS: " << 1. / Time::delta_time;
+    
 }
 
 void exit() {

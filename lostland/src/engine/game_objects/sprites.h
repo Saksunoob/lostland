@@ -35,11 +35,13 @@ namespace Engine
         public:
             IVec2 grid_size;
             TextureAtlas texture;
+            Texture blend_mask;
 
             void setTiles(unsigned int* new_tiles);
             void setTile(unsigned int index, unsigned int value);
 
             TileMapRenderer(TextureAtlas atlas, IVec2 grid_size);
+            TileMapRenderer(TextureAtlas atlas, IVec2 grid_size, Texture blend_mask);
 
             void render();
         };

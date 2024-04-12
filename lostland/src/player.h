@@ -5,7 +5,7 @@ using namespace Engine::GameObjects;
 using namespace Engine;
 
 class Player : public Component {
-	const double SPEED = 6400.0;
+	const double SPEED = 1000.0;
 
 public:
 
