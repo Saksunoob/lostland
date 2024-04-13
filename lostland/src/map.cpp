@@ -1,13 +1,13 @@
 #include "map.h"
 
-Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>(CHUNK_SIZE* CHUNK_SIZE, static_cast<Tile>(0))), object() {
+Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>((CHUNK_SIZE+2)* (CHUNK_SIZE+2), static_cast<Tile>(0))), object() {
 	Transform transform;
 	TileMapRenderer renderer(map->atlas, IVec2(CHUNK_SIZE), map->blend_mask);
-	transform.scale = Vec2(1.0, 1.0);	
+	transform.scale = Vec2(1.0, 1.0);
 
-	for (int i = 0; i < CHUNK_SIZE * CHUNK_SIZE; i++) {
-		int c_x = i % CHUNK_SIZE;
-		int c_y = i / CHUNK_SIZE;
+	for (int i = 0; i < (CHUNK_SIZE+2)*(CHUNK_SIZE+2); i++) {
+		int c_x = i % (CHUNK_SIZE+2) - 1;
+		int c_y = i / (CHUNK_SIZE+2) - 1;
 
 		double x = (double)(c_x + (int)CHUNK_SIZE * pos.x) / 128;
 		double y = (double)(c_y + (int)CHUNK_SIZE * pos.y) / 128.;
