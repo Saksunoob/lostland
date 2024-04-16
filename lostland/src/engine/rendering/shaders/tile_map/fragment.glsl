@@ -25,38 +25,33 @@ void main() {
 
 	FragColor = texture(atlas, final_UV);
 	
-
+	// Tile blending
 	uint tile_above = texture(tiles, calc_UV+vec2(0, tile_size.y)).r;
 	uint tile_below = texture(tiles, calc_UV-vec2(0, tile_size.y)).r;
 	uint tile_right = texture(tiles, calc_UV+vec2(tile_size.x, 0)).r;
 	uint tile_left  = texture(tiles, calc_UV-vec2(tile_size.x, 0)).r;
-	
-	if (tile != tile_above) {
-		vec3 mask_color = texture(blend_mask, tile_UV).rgb;
-		float mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
-	
-		vec2 neighbour_tile_UV = getTilePos(tile_above) + tile_UV/atlas_size;
-		FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
-	}
-	if (tile != tile_below) {
-		vec3 mask_color = texture(blend_mask, vec2(1, 1)-tile_UV).rgb;
-		float mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
-	
-		vec2 neighbour_tile_UV = getTilePos(tile_below) + tile_UV/atlas_size;
-		FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
-	}
-	if (tile != tile_right) {
-		vec3 mask_color = texture(blend_mask, tile_UV.yx).rgb;
-		float mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
-	
-		vec2 neighbour_tile_UV = getTilePos(tile_right) + tile_UV/atlas_size;
-		FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
-	}
-	if (tile != tile_left) {
-		vec3 mask_color = texture(blend_mask, vec2(1, 1)-tile_UV.yx).rgb;
-		float mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
-	
-		vec2 neighbour_tile_UV = getTilePos(tile_left) + tile_UV/atlas_size;
-		FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
-	}
+
+	// Above
+	vec3 mask_color = texture(blend_mask, tile_UV).rgb;
+	float mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
+	vec2 neighbour_tile_UV = getTilePos(tile_above) + tile_UV/atlas_size;
+	FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
+
+	// Below
+	mask_color = texture(blend_mask, vec2(1, 1)-tile_UV).rgb;
+	mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
+	neighbour_tile_UV = getTilePos(tile_below) + tile_UV/atlas_size;
+	FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
+
+	// Right
+	mask_color = texture(blend_mask, tile_UV.yx).rgb;
+	mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
+	neighbour_tile_UV = getTilePos(tile_right) + tile_UV/atlas_size;
+	FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
+
+	// Left
+	mask_color = texture(blend_mask, vec2(1, 1)-tile_UV.yx).rgb;
+	mask = (mask_color.r + mask_color.g + mask_color.b) / 3.;
+	neighbour_tile_UV = getTilePos(tile_left) + tile_UV/atlas_size;
+	FragColor = mix(FragColor, texture(atlas, neighbour_tile_UV), mask);
 }
