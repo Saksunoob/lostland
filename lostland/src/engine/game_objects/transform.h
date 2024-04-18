@@ -7,7 +7,8 @@
 namespace Engine {
 	namespace GameObjects {
 		class Transform : public Component {
-			glm::mat4 global_transform;
+			Vec2 global_position, global_scale;
+			double global_rotation;
 		public:
 			Vec2 position, scale;
 			int z_index;
@@ -17,7 +18,6 @@ namespace Engine {
 
 			void update();
 			glm::mat4 matrix();
-			glm::mat4 local_matrix();
 		};
 	}
 }

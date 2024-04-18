@@ -53,3 +53,5 @@ Vec2 Vec2::operator*(double num) { return Vec2(x * num, y * num); }
 Vec2 Vec2::operator/(double num) { return Vec2(x / num, y / num); }
 Vec2 Vec2::operator+(Vec2 other) { return Vec2(x + other.x, y + other.y); }
 Vec2 Vec2::operator-(Vec2 other) { return Vec2(x - other.x, y - other.y); }
+Vec2 Vec2::operator*(Vec2 other) { return Vec2(x * other.x, y * other.y); }
+Vec2 Vec2::operator/(Vec2 other) { return Vec2(x / other.x, y / other.y); }

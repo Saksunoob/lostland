@@ -12,10 +12,10 @@ glm::mat4 Engine::Camera::matrix() {
 
 	Transform* transform = object->get_component<Transform>();
 
-	glm::mat4 proj = glm::ortho(-v_x / 2., v_x / 2., -v_y / 2., v_y / 2., 0., 100.);
+	glm::mat4 proj = glm::ortho(-v_x / 2., v_x / 2., -v_y / 2., v_y / 2., std::numeric_limits<double>::min(), std::numeric_limits<double>::max());
 	proj = glm::scale(proj, glm::vec3(transform->scale.x, transform->scale.y, 1.));
 	proj = glm::rotate(proj, (float)transform->rotation, glm::vec3(0., 0., 1.));
-	proj = glm::translate(proj, glm::vec3(-transform->position.x, -transform->position.y, 0.));
+	proj = glm::translate(proj, glm::vec3(-transform->position.x, -transform->position.y, 0));
 
 	return proj;
 }

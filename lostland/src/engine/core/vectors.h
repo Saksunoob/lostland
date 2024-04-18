@@ -37,6 +37,8 @@ namespace Engine {
 		Vec2 operator/(double num);
 		Vec2 operator+(Vec2 other);
 		Vec2 operator-(Vec2 other);
+		Vec2 operator*(Vec2 other);
+		Vec2 operator/(Vec2 other);
 	};
 }
 
