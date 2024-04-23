@@ -145,7 +145,7 @@ namespace Engine {
 
         class KeyState {
         public:
-            bool pressed, just_changed;
+            bool pressed = false, just_changed = false;
         };
 
         static KeyState key_states[KEYS_AMOUNT];
@@ -153,7 +153,7 @@ namespace Engine {
         static IVec2 mouse_pos, mouse_delta;
 
         void init();
-        void processInput(GLFWwindow* window);
+        //void processInput(SDL_Window* window);
 
         bool get_key_pressed(Key key);
         bool get_key_just_pressed(Key key);

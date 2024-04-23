@@ -2,7 +2,7 @@
 
 using namespace Engine;
 
-const steady_clock::time_point Time::time_start = high_resolution_clock::now();
+const system_clock::time_point Time::time_start = high_resolution_clock::now();
 double Time::delta_time = 0.0;
 long long Time::elapsed = 0;
 

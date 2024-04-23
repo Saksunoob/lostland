@@ -6,7 +6,7 @@ using namespace std::chrono;
 
 namespace Engine {
 	namespace Time {
-		extern const steady_clock::time_point time_start;
+		extern const system_clock::time_point time_start;
 		extern double delta_time;
 		extern long long elapsed;
 

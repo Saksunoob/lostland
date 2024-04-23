@@ -103,7 +103,7 @@ TileMapRenderer::TileMapRenderer(TextureAtlas atlas, IVec2 grid_size) :
     texture(atlas),
     blend_mask(Texture(0, 0, 0, 255))
 {
-    __super::initialize();
+    SpriteRenderer::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
         initialize();
         update_tiles_texture();
@@ -119,7 +119,7 @@ TileMapRenderer::TileMapRenderer(TextureAtlas atlas, IVec2 grid_size, Texture bl
     texture(atlas),
     blend_mask(blend_mask)
 {
-    __super::initialize();
+    SpriteRenderer::initialize();
     if (TileMapRenderer::shader.ID == NULL) { // Initialize shader
         initialize();
         update_tiles_texture();
@@ -178,7 +178,7 @@ void TileMapRenderer::render() {
     shader.setUVec2("grid_size", glm::uvec2(grid_size.x, grid_size.y));
 
     // Bind array
-    glBindVertexArray(__super::VAO);
+    glBindVertexArray(SpriteRenderer::VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // Unbind array
     glBindVertexArray(0);

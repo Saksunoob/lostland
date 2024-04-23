@@ -1,8 +1,9 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
+#include <SDL2/SDL.h>
+#include <glad/glad.h>
+
 
 #include "vectors.h"
 #include "input.h"
@@ -10,13 +11,13 @@
 #include "scene.h"
 
 namespace Engine {
-	extern GLFWwindow* window;
+	extern SDL_Window* window;
+	extern SDL_GLContext context;
 	extern Scene* active_scene;
 
 	bool initialize(IVec2 window_size, const char* title, void (*start)(), void (*update)(), void (*exit)());
 	void quit();
 	static void render();
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void activate_scene(Scene* scene);
 }
 

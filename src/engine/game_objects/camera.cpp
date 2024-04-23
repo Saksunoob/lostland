@@ -22,7 +22,7 @@ glm::mat4 Engine::Camera::matrix() {
 
 Vec2 Camera::screen_to_worldspace(IVec2 screen_pos) {
 	IVec2 window_size;
-	glfwGetWindowSize(Engine::window, &window_size.x, &window_size.y);
+	SDL_GetWindowSize (Engine::window, &window_size.x, &window_size.y);
 	window_size /= 2;
 	screen_pos -= window_size;
 	Vec2 screen_UV = Vec2((double)screen_pos.x / (double)window_size.x, (double)screen_pos.y / (double)window_size.y);

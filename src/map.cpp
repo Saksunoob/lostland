@@ -31,6 +31,24 @@ Chunk::Chunk(Map* map, IVec2 pos) : tiles(std::vector<Tile>((CHUNK_SIZE+2)* (CHU
 	object = map->object->scene->instatiate(map->object);
 	object->attach(transform);
 	object->attach(renderer);
+
+	// Spawn foliage
+	srand(map->seed + std::hash<IVec2>{}(pos));
+
+	for (int y = 0; y < CHUNK_SIZE; y++) {
+		for (int x = 0; x < CHUNK_SIZE; x++) {
+			if (rand() % 100 == 0) {
+				GameObject* foliage = active_scene->instatiate(object);
+				Transform transform;
+				transform.position = (Vec2(x, y) - (Vec2(CHUNK_SIZE)/2)) * 64;
+				transform.z_index = pos.y + y;
+				foliage->attach(transform);
+
+				SpriteRenderer renderer("src/grass.png");
+				foliage->attach(renderer);
+			}
+		}
+	}
 };
 
 bool Chunk::posInBounds(IVec2 pos) {
