@@ -54,23 +54,21 @@ bool Engine::initialize(IVec2 window_size, const char* title, void (*start)(), v
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    Input::init();
-
     start();
 
     bool quit = false;
     SDL_Event event;
     while (!quit) {
-        //Input::processInput( window );
         Time::update_time();
         active_scene->update();
         update();
         Engine::render();
-
+        Input::newFrame();
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quit = true;
             }
+            Input::processInputEvent( event );
         }
     }
 

@@ -1,13 +1,27 @@
 #pragma once
 #include "engine.h"
-#include <GLFW/glfw3.h>
 #include "vectors.h"
 
 namespace Engine {
     namespace Input {
         enum Key {
+            KEY_BACKSPACE,
+            KEY_TAB,
+            KEY_CLEAR,
+            KEY_RETURN,
+            KEY_PAUSE,
+            KEY_ESCAPE,
             KEY_SPACE,
-            KEY_APOSTROPHE,
+            KEY_EXCLAIM,
+            KEY_QUOTEDBL,
+            KEY_HASH,
+            KEY_DOLLAR,
+            KEY_AMPERSAND,
+            KEY_QUOTE,
+            KEY_LEFTPAREN,
+            KEY_RIGHTPAREN,
+            KEY_ASTERISK,
+            KEY_PLUS,
             KEY_COMMA,
             KEY_MINUS,
             KEY_PERIOD,
@@ -22,8 +36,19 @@ namespace Engine {
             KEY_7,
             KEY_8,
             KEY_9,
+            KEY_COLON,
             KEY_SEMICOLON,
-            KEY_EQUAL,
+            KEY_LESS,
+            KEY_EQUALS,
+            KEY_GREATER,
+            KEY_QUESTION,
+            KEY_AT,
+            KEY_LEFTBRACKET,
+            KEY_BACKSLASH,
+            KEY_RIGHTBRACKET,
+            KEY_CARET,
+            KEY_UNDERSCORE,
+            KEY_BACKQUOTE,
             KEY_A,
             KEY_B,
             KEY_C,
@@ -50,31 +75,33 @@ namespace Engine {
             KEY_X,
             KEY_Y,
             KEY_Z,
-            KEY_LEFT_BRACKET,
-            KEY_BACKSLASH,
-            KEY_RIGHT_BRACKET,
-            KEY_GRAVE_ACCENT,
-            KEY_WORLD_1,
-            KEY_WORLD_2,
-            KEY_ESCAPE,
-            KEY_ENTER,
-            KEY_TAB,
-            KEY_BACKSPACE,
-            KEY_INSERT,
             KEY_DELETE,
+            KEY_KP0,
+            KEY_KP1,
+            KEY_KP2,
+            KEY_KP3,
+            KEY_KP4,
+            KEY_KP5,
+            KEY_KP6,
+            KEY_KP7,
+            KEY_KP8,
+            KEY_KP9,
+            KEY_KP_PERIOD,
+            KEY_KP_DIVIDE,
+            KEY_KP_MULTIPLY,
+            KEY_KP_MINUS,
+            KEY_KP_PLUS,
+            KEY_KP_ENTER,
+            KEY_KP_EQUALS,
+            KEY_UP,
+            KEY_DOWN,
             KEY_RIGHT,
             KEY_LEFT,
-            KEY_DOWN,
-            KEY_UP,
-            KEY_PAGE_UP,
-            KEY_PAGE_DOWN,
+            KEY_INSERT,
             KEY_HOME,
             KEY_END,
-            KEY_CAPS_LOCK,
-            KEY_SCROLL_LOCK,
-            KEY_NUM_LOCK,
-            KEY_PRINT_SCREEN,
-            KEY_PAUSE,
+            KEY_PAGEUP,
+            KEY_PAGEDOWN,
             KEY_F1,
             KEY_F2,
             KEY_F3,
@@ -90,42 +117,23 @@ namespace Engine {
             KEY_F13,
             KEY_F14,
             KEY_F15,
-            KEY_F16,
-            KEY_F17,
-            KEY_F18,
-            KEY_F19,
-            KEY_F20,
-            KEY_F21,
-            KEY_F22,
-            KEY_F23,
-            KEY_F24,
-            KEY_F25,
-            KEY_KP_0,
-            KEY_KP_1,
-            KEY_KP_2,
-            KEY_KP_3,
-            KEY_KP_4,
-            KEY_KP_5,
-            KEY_KP_6,
-            KEY_KP_7,
-            KEY_KP_8,
-            KEY_KP_9,
-            KEY_KP_DECIMAL,
-            KEY_KP_DIVIDE,
-            KEY_KP_MULTIPLY,
-            KEY_KP_SUBTRACT,
-            KEY_KP_ADD,
-            KEY_KP_ENTER,
-            KEY_KP_EQUAL,
-            KEY_LEFT_SHIFT,
-            KEY_LEFT_CONTROL,
-            KEY_LEFT_ALT,
-            KEY_LEFT_SUPER,
-            KEY_RIGHT_SHIFT,
-            KEY_RIGHT_CONTROL,
-            KEY_RIGHT_ALT,
-            KEY_RIGHT_SUPER,
+            KEY_NUMLOCK,
+            KEY_CAPSLOCK,
+            KEY_SCROLLOCK,
+            KEY_RSHIFT,
+            KEY_LSHIFT,
+            KEY_RCTRL,
+            KEY_LCTRL,
+            KEY_RALT,
+            KEY_LALT,
+            KEY_LSUPER,
+            KEY_RSUPER,
+            KEY_MODE,
+            KEY_HELP,
+            KEY_PRINT,
+            KEY_SYSREQ,
             KEY_MENU,
+            KEY_POWER,
             KEYS_AMOUNT,
         };
 
@@ -143,8 +151,7 @@ namespace Engine {
             MOUSE_MIDDLE = 2,
         };
 
-        class KeyState {
-        public:
+        struct KeyState {
             bool pressed = false, just_changed = false;
         };
 
@@ -152,8 +159,8 @@ namespace Engine {
         static KeyState mouse_button_states[8];
         static IVec2 mouse_pos, mouse_delta;
 
-        void init();
-        //void processInput(SDL_Window* window);
+        void newFrame();
+        void processInputEvent(SDL_Event event);
 
         bool get_key_pressed(Key key);
         bool get_key_just_pressed(Key key);
@@ -168,6 +175,6 @@ namespace Engine {
         IVec2 get_mouse_pos();
         IVec2 get_mouse_delta();
 
-        static int get_glfw_key(Key key);
+        Input::Key key_from_sdlkey(SDL_Keysym sdl_key);
     }
 }
